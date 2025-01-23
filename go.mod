@@ -1,3 +1,3 @@
-module github.com/cjay-shouhui/xmhOpenApiSdk
+module github.com/cjay-shouhui/
 
 go 1.13
