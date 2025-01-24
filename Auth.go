@@ -1,7 +1,7 @@
 package xmhOpenApiSdk
 
 type AuthParam struct {
-	AppId     uint64 `json:"appId"`
+	AppId     string `json:"appId"`
 	AppSecret string `json:"appSecret"`
 }
 
