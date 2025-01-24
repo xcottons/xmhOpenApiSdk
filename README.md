@@ -1,4 +1,2 @@
 # xmhOpenApiSdk
 xmhOpenApiSdk
-
-test
