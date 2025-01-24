@@ -2,8 +2,6 @@ package xmhOpenApiSdk
 
 import "sync"
 
-type StorageProvider interface {
-}
 type Storage interface {
 	Save(key string, value interface{}) error
 	Get(key string) (interface{}, error)
