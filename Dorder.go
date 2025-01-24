@@ -1,5 +1,27 @@
 package xmhOpenApiSdk
 
+type OrderState string
+
+const (
+	// OERDER_STATE_UNPAID indicates that the order is unpaid, and the customer has not completed the payment process.
+	OERDER_STATE_UNPAID OrderState = "UNPAID"
+
+	// OERDER_STATE_PAID indicates that the order is paid, and the customer has successfully completed the payment.
+	OERDER_STATE_PAID OrderState = "PAID"
+
+	// OERDER_STATE_UNSHIPPED indicates that the order is not shipped yet, but the payment has been completed.
+	OERDER_STATE_UNSHIPPED OrderState = "UNSHIPPED"
+
+	// OERDER_STATE_SHIPPED indicates that the order has been shipped but not yet delivered to the customer.
+	OERDER_STATE_SHIPPED OrderState = "SHIPPED"
+
+	// OERDER_STATE_DELIVERED indicates that the order has been delivered to the customer successfully.
+	OERDER_STATE_DELIVERED OrderState = "DELIVERED"
+
+	// OERDER_STATE_FINISHED indicates that the order is completed, and the transaction is closed.
+	OERDER_STATE_FINISHED OrderState = "FINISHED"
+)
+
 type DOrder struct {
 	OrderId           string         `json:"orderId"`
 	SubOrderId        string         `json:"subOrderId,omitempty"`
@@ -12,7 +34,7 @@ type DOrder struct {
 	InsuredPayPrice   string         `json:"insuredPayPrice,omitempty" validate:"omitempty,numeric"` //邮包险支付金额，以元为单位 （邮包险）
 	PayTime           string         `json:"payTime" validate:"omitempty"`                           //支付时间
 	ItemList          []*DItem       `json:"itemList"`
-	OrderState        string         `json:"orderState"`                           //同步平台订单时需要判断是否为空
+	OrderState        OrderState     `json:"orderState"`                           //同步平台订单时需要判断是否为空
 	SenderInfo        *SenderInfoDto `json:"senderInfo"`                           //validate:"required" 试算的时候不要求填写，同步订单数据的时候才要求。
 	*ReceiverInfoDto  `json:"receiverInfo"`                                        //validate:"required" 同上。
 	OrderCreateTime   string         `json:"orderCreateTime" validate:"omitempty"` //同步平台订单时需要判断是否为空
@@ -78,22 +100,25 @@ type PlatformOrderParam struct {
 }
 
 type CancelOrderParam struct {
-	UserId       string  `json:"userId" validate:"required"`
-	UserEmail    string  `json:"userEmail" validate:"required,email"`
-	OrderInfo    *DOrder `json:"orderInfo" validate:"required"`
-	BuyerIp      string  `json:"buyerIp"`
-	DisRcId      string  `json:"disRcId"`
-	DisComputeId string  `json:"disComputeId"`
-	ShopId       string  `json:"shopId"`
+	OrderId           string   `json:"orderId"`
+	SubOrderId        string   `json:"subOrderId,omitempty"`
+	DisXmhShopOrderId string   `json:"disXmhShopOrderId,omitempty"`
+	CancelId          string   `json:"cancelId"`
+	CancelReasonType  string   `json:"cancelReasonType"`
+	CancelReason      string   `json:"cancelReason"`
+	Currency          string   `json:"currency,omitempty"`
+	TotalRefundPrice  string   `json:"totalRefundPrice,omitempty"`
+	CancelItems       []*DItem `json:"cancelItems,omitempty"`
 }
 type InsuredOrderParam struct {
-	UserId       string  `json:"userId" validate:"required"`
-	UserEmail    string  `json:"userEmail" validate:"required,email"`
-	OrderInfo    *DOrder `json:"orderInfo" validate:"required"`
-	BuyerIp      string  `json:"buyerIp"`
-	DisRcId      string  `json:"disRcId"`
-	DisComputeId string  `json:"disComputeId"`
-	ShopId       string  `json:"shopId"`
+	UserId            string  `json:"userId" validate:"required"`
+	UserEmail         string  `json:"userEmail" validate:"required,email"`
+	OrderInfo         *DOrder `json:"orderInfo" validate:"required"`
+	BuyerIp           string  `json:"buyerIp"`
+	DisRcId           string  `json:"disRcId"`
+	DisComputeId      string  `json:"disComputeId"`
+	ShopId            string  `json:"shopId"`
+	DisXmhShopOrderId string  `json:"disXmhShopOrderId"`
 }
 
 type InsuredOrderResult struct {

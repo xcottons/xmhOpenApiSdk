@@ -47,3 +47,27 @@ type DItemProperties map[string]string
 func (d *DItem) AddPp() *DItem {
 	return d
 }
+
+type ProductItemsParam struct {
+	Items   []*ProductItem `json:"items"`
+	FileUrl string         `json:"fileUrl"`
+}
+
+type ProductItem struct {
+	PlatformItemId string                              `json:"platformItemId"`
+	ItemState      int32                               `json:"itemState"`
+	ItemName       string                              `json:"itemName"`
+	Currency       string                              `json:"currency"`
+	PicLink        []string                            `json:"picLink,omitempty"`
+	ItemLink       string                              `json:"itemLink,omitempty"`
+	Variants       []OpenApiPlatformProductItemVariant `json:"variants,omitempty"`
+	ItemPriceExt   string                              `json:"itemPriceExt,omitempty"`
+	ItemDetailExt  string                              `json:"itemDetailExt,omitempty"`
+}
+type OpenApiPlatformProductItemVariant struct {
+	VariantId string `json:"variantId"`
+	SkuId     string `json:"skuId"`
+	Name      string `json:"Name"`
+	Price     string `json:"price"`
+	ImageUrl  string `json:"imageUrl,omitempty"`
+}

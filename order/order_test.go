@@ -15,8 +15,12 @@ func TestSpOrder(t *testing.T) {
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail: "VIPER3@qq.com",
 		OrderInfo: &xmhsdk.DOrder{
-			TotalPayPrice: "150.00",
-			Currency:      "USD",
+			OrderId:         "OrderId3",
+			SubOrderId:      "SubOrderId6",
+			TotalPayPrice:   "150.00",
+			Currency:        "USD",
+			OrderState:      xmhsdk.OERDER_STATE_UNPAID,
+			InsuredPayPrice: "3.00",
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 				SkuId:             "SKU001",
