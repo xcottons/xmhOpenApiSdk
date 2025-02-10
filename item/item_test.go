@@ -42,7 +42,7 @@ func TestSyncWithVariants(t *testing.T) {
 	params := &xmhsdk.ProductItemsParam{
 		Items: []*xmhsdk.ProductItem{
 			{
-				PlatformItemId: "123",
+				PlatformItemId: "PlatformItemId1",
 				ItemState:      1,
 				ItemName:       "TestProductItem1",
 				Currency:       "CNY",
@@ -58,10 +58,17 @@ func TestSyncWithVariants(t *testing.T) {
 						Price:     "12.00",
 						ImageUrl:  "https://www.google.com",
 					},
+					{
+						VariantId: "TestProductItemV2",
+						Name:      "TestProductItemVariant1",
+						SkuId:     "TestProductItemS2",
+						Price:     "13.00",
+						ImageUrl:  "https://www.google.com",
+					},
 				},
 			},
 			{
-				PlatformItemId: "123",
+				PlatformItemId: "PlatformItemId2",
 				ItemState:      1,
 				ItemName:       "TestProductItem2",
 				Currency:       "CNY",
@@ -73,7 +80,13 @@ func TestSyncWithVariants(t *testing.T) {
 					VariantId: "TestProductItemV2",
 					Name:      "TestProductItemVariant2",
 					SkuId:     "TestProductItemS2",
-					Price:     "13.00",
+					Price:     "23.00",
+					ImageUrl:  "https://www.google.com",
+				}, {
+					VariantId: "TestProductItemV1",
+					Name:      "TestProductItemVariant1",
+					SkuId:     "TestProductItemS1",
+					Price:     "23.00",
 					ImageUrl:  "https://www.google.com",
 				}},
 			},
