@@ -7,7 +7,7 @@ const (
 	OERDER_STATE_UNPAID OrderState = "UNPAID"
 
 	// OERDER_STATE_PAID indicates that the order is paid, and the customer has successfully completed the payment.
-	OERDER_STATE_PAID OrderState = "PAID"
+	OERDER_STATE_PAID OrderState = "PAIED"
 
 	// OERDER_STATE_UNSHIPPED indicates that the order is not shipped yet, but the payment has been completed.
 	OERDER_STATE_UNSHIPPED OrderState = "UNSHIPPED"

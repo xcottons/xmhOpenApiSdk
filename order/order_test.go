@@ -15,12 +15,15 @@ func TestSpOrder(t *testing.T) {
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail: "VIPER3@qq.com",
 		OrderInfo: &xmhsdk.DOrder{
-			OrderId:         "OrderId3",
+			OrderId:         "OrdewwrfgId12s32",
 			SubOrderId:      "SubOrderId6",
 			TotalPayPrice:   "150.00",
 			Currency:        "USD",
-			OrderState:      xmhsdk.OERDER_STATE_UNPAID,
+			OrderState:      xmhsdk.OERDER_STATE_PAID,
 			InsuredPayPrice: "3.00",
+			TaxPrice:        "0.00",
+			ShipPrice:       "0.00",
+			PayTime:         "2025-01-02T15:04:05Z07:00",
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 				SkuId:             "SKU001",

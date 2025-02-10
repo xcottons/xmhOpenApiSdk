@@ -42,7 +42,7 @@ func TestSyncWithVariants(t *testing.T) {
 	params := &xmhsdk.ProductItemsParam{
 		Items: []*xmhsdk.ProductItem{
 			{
-				PlatformItemId: "PlatformItemId1",
+				PlatformItemId: "PlatformItemId1112",
 				ItemState:      1,
 				ItemName:       "TestProductItem1",
 				Currency:       "CNY",
@@ -55,20 +55,20 @@ func TestSyncWithVariants(t *testing.T) {
 						VariantId: "TestProductItemV1",
 						Name:      "TestProductItemVariant1",
 						SkuId:     "TestProductItemS1",
-						Price:     "12.00",
+						Price:     "1.00",
 						ImageUrl:  "https://www.google.com",
 					},
 					{
 						VariantId: "TestProductItemV2",
 						Name:      "TestProductItemVariant1",
 						SkuId:     "TestProductItemS2",
-						Price:     "13.00",
+						Price:     "1.00",
 						ImageUrl:  "https://www.google.com",
 					},
 				},
 			},
 			{
-				PlatformItemId: "PlatformItemId2",
+				PlatformItemId: "PlatformItemId123",
 				ItemState:      1,
 				ItemName:       "TestProductItem2",
 				Currency:       "CNY",
@@ -80,13 +80,13 @@ func TestSyncWithVariants(t *testing.T) {
 					VariantId: "TestProductItemV2",
 					Name:      "TestProductItemVariant2",
 					SkuId:     "TestProductItemS2",
-					Price:     "23.00",
+					Price:     "123.00",
 					ImageUrl:  "https://www.google.com",
 				}, {
 					VariantId: "TestProductItemV1",
 					Name:      "TestProductItemVariant1",
 					SkuId:     "TestProductItemS1",
-					Price:     "23.00",
+					Price:     "223.00",
 					ImageUrl:  "https://www.google.com",
 				}},
 			},
@@ -96,4 +96,20 @@ func TestSyncWithVariants(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func TestSyncWithFile(t *testing.T) {
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	auth.New(&xmhsdk.AuthParam{
+		AppId:     "1000151",
+		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
+	})
+	params := &xmhsdk.ProductItemsParam{
+		FileUrl: "https://sslstatic.xiaoyusan.com/img/hyju/item.b325b0e1753dc8ad.csv",
+	}
+	_, err := Sync(params)
+	if err != nil {
+		panic(err)
+	}
+
 }
