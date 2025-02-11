@@ -1,5 +1,33 @@
 package xmhOpenApiSdk
 
+import "errors"
+
+var (
+	PPPlanCodeFor1Years = "10802001"
+	PPPlanCodeFor2Years = "10802002"
+	PPPlanCodeFor3Years = "10802003"
+)
+
+type PpPlanYear int
+
+const (
+	PpPlanOneYear = iota + 1
+	PpPlanTwoYear
+	PpPlanThreeYear
+)
+
+var ppPlanYearMap = map[PpPlanYear]string{
+	PpPlanOneYear:   PPPlanCodeFor1Years,
+	PpPlanTwoYear:   PPPlanCodeFor2Years,
+	PpPlanThreeYear: PPPlanCodeFor3Years,
+}
+
+var ppYearsMap = map[PpPlanYear]string{
+	PpPlanOneYear:   "1 Year",
+	PpPlanTwoYear:   "2 Year",
+	PpPlanThreeYear: "3 Year",
+}
+
 type DItem struct {
 	ItemId               string          `json:"itemId" validate:"required"`
 	VariantId            string          `json:"variantId"`
@@ -44,8 +72,40 @@ type PPVariant struct {
 type DItemProperties map[string]string
 
 // to Add a product protection to this order item you should add a ppVariant object to the item. which come from calc api when you sync order to xmh
-func (d *DItem) AddPp() *DItem {
-	return d
+func (d *DItem) AddPp(pPrice string, py PpPlanYear) (*DItem, error) {
+	if pId, ok := ppPlanYearMap[py]; !ok {
+		return nil, errors.New("invalid pp plan year")
+	} else {
+		d.Properties = DItemProperties{
+			"Plan ID": pId,
+		}
+		d.PpVariant = &PPVariant{
+			VariantID:      "",
+			Name:           ppYearsMap[py],
+			PriceString:    pPrice,
+			Currency:       d.Currency,
+			CurrencySymbol: "",
+			Properties: map[string]string{
+				"Reference": d.ItemId,
+				"Plan ID":   pId,
+				"Product":   d.ItemName,
+			},
+		}
+	}
+	return d, nil
+}
+
+func (d *DItem) AddOneYearPp(pPrice string) *DItem {
+	pp, _ := d.AddPp(pPrice, PpPlanOneYear)
+	return pp
+}
+func (d *DItem) AddTwoYearPp(pPrice string) *DItem {
+	pp, _ := d.AddPp(pPrice, PpPlanTwoYear)
+	return pp
+}
+func (d *DItem) AddThreeYearPp(pPrice string) *DItem {
+	pp, _ := d.AddPp(pPrice, PpPlanThreeYear)
+	return pp
 }
 
 type ProductItemsParam struct {
