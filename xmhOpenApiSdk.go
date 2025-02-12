@@ -121,15 +121,15 @@ func (sc *SdkClient) Do(req *http.Request) (*http.Response, error) {
 	req.Header.Set("X-Api-Version-Desc", ApiVersionDesc)
 	req.Header.Set("X-App-Id", AppId)
 	if req.Method == http.MethodPost && req.Body != nil { //if post request, add signature
-		hmac_sha256 := hmac.New(sha256.New, []byte(SignSecret))
+		hmacSha256 := hmac.New(sha256.New, []byte(SignSecret))
 		bodyData, err := io.ReadAll(req.Body)
 		if err != nil {
 			Logger.Errorf("read request body error: %v", err)
 			return nil, err
 		}
 		defer req.Body.Close()
-		hmac_sha256.Write(bodyData)
-		signature := base64.StdEncoding.EncodeToString(hmac_sha256.Sum(nil))
+		hmacSha256.Write(bodyData)
+		signature := base64.StdEncoding.EncodeToString(hmacSha256.Sum(nil))
 		Logger.Debugf("signature: %s", signature)
 		req.Header.Set("Signature", signature)
 		req.Body = io.NopCloser(bytes.NewReader(bodyData)) // reset body

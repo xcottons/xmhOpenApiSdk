@@ -15,7 +15,7 @@ const (
 )
 
 var DefaultLeveledLogger LeveledLoggerInterface = &LeveledLogger{
-	Level: LevelError,
+	Level: LevelDebug,
 }
 
 type Level uint32

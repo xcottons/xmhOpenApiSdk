@@ -6,7 +6,7 @@ import (
 
 const platformShipURL = "SyncPlatformShip"
 
-func Ship(params *xmhsdk.ShipParam) (*xmhsdk.ShipResult, error) {
+func New(params *xmhsdk.ShipParam) (*xmhsdk.ShipResult, error) {
 	result := &xmhsdk.ShipResult{}
 	err := xmhsdk.MakeRequest(platformShipURL, params, result)
 	if err != nil {

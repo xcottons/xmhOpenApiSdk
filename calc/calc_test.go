@@ -73,7 +73,3 @@ func TestPpCalc(t *testing.T) {
 	}
 	t.Logf("calc price result: %s", xmhsdk.ToStr(calc))
 }
-
-func TestCalc(t *testing.T) {
-
-}
