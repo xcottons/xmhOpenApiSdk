@@ -7,11 +7,10 @@ import (
 )
 
 func TestShip(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	auth.New(&xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	})
+	auth.New()
 
 	params := &xmhsdk.ShipParam{
 		OrderId:    "order6666668",

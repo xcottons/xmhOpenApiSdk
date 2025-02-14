@@ -7,11 +7,10 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	auth.New(&xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	})
+	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail: "VIPER3@qq.com",
 		OrderInfo: &xmhsdk.DOrder{
@@ -55,11 +54,10 @@ func TestSpOrder(t *testing.T) {
 }
 
 func TestPpOrder(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	auth.New(&xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	})
+	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail: "VIPER3@qq.com",
 		OrderInfo: &xmhsdk.DOrder{
@@ -117,11 +115,10 @@ func TestPpOrder(t *testing.T) {
 }
 
 func TestPpOrders(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	auth.New(&xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	})
+	auth.New()
 	p1 := &xmhsdk.DItem{
 		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 		SkuId:             "SKU001",

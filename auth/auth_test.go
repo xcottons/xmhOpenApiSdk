@@ -6,11 +6,10 @@ import (
 )
 
 func TestNewAuth(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	param := &xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	}
+	param :=
 	auth, err := New(param)
 	if err != nil {
 		t.Errorf("NewAuth error: %v", err)

@@ -7,11 +7,10 @@ import (
 )
 
 func TestSpCalc(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	auth.New(&xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	})
+	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
 		UserEmail:                "VIPER3@qq.com",
@@ -31,11 +30,10 @@ func TestSpCalc(t *testing.T) {
 }
 
 func TestPpCalc(t *testing.T) {
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	auth.New(&xmhsdk.AuthParam{
-		AppId:     "1000151",
-		AppSecret: "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p",
-	})
+	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
 		UserEmail:                "VIPER3@qq.com",
