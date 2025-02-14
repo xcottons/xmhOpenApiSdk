@@ -1,6 +1,6 @@
 # xmhOpenApiSdk
 xmhOpenApiSdk
 
-usage:
+参考 [中文](./README.CN)
 
 
