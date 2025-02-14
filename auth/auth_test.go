@@ -9,8 +9,7 @@ func TestNewAuth(t *testing.T) {
 	xmhsdk.AppId = "1000151"
 	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	param :=
-	auth, err := New(param)
+	auth, err := New()
 	if err != nil {
 		t.Errorf("NewAuth error: %v", err)
 	}
