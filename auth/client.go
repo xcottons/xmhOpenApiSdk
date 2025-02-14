@@ -10,8 +10,12 @@ import (
 
 const authUrl = "applyToken"
 
-func New(params *xmhsdk.AuthParam) (*xmhsdk.Auth, error) {
+func New() (*xmhsdk.Auth, error) {
 	sdkClinet := xmhsdk.GetClient()
+	params := &xmhsdk.AuthParam{
+		AppId:     xmhsdk.AppId,
+		AppSecret: xmhsdk.AppSecret,
+	}
 	jsonParam, err := json.Marshal(params)
 	if err != nil {
 		xmhsdk.Logger.Errorf("new auth json marshal error: %v", err)
