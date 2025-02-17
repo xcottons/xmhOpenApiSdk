@@ -4,16 +4,16 @@ type OrderState string
 
 const (
 	// OERDER_STATE_UNPAID indicates that the order is unpaid, and the customer has not completed the payment process.
-	OERDER_STATE_UNPAID OrderState = "UNPAID"
+	OERDER_STATE_UNPAID OrderState = "UNPAIED"
 
 	// OERDER_STATE_PAID indicates that the order is paid, and the customer has successfully completed the payment.
 	OERDER_STATE_PAID OrderState = "PAIED"
 
 	// OERDER_STATE_UNSHIPPED indicates that the order is not shipped yet, but the payment has been completed.
-	OERDER_STATE_UNSHIPPED OrderState = "UNSHIPPED"
+	OERDER_STATE_UNSHIPPED OrderState = "UNSHIPED"
 
 	// OERDER_STATE_SHIPPED indicates that the order has been shipped but not yet delivered to the customer.
-	OERDER_STATE_SHIPPED OrderState = "SHIPPED"
+	OERDER_STATE_SHIPPED OrderState = "SHIPED"
 
 	// OERDER_STATE_DELIVERED indicates that the order has been delivered to the customer successfully.
 	OERDER_STATE_DELIVERED OrderState = "DELIVERED"
