@@ -9,14 +9,46 @@ import (
 )
 
 func TestShip(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
-
+	p1 := &xmhsdk.DItem{
+		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+		SkuId:             "SKU001",
+		ItemName:          "Durable Concrete Shirt",
+		Currency:          "USD",
+		UnitPrice:         "100.00",
+		UnitNum:           "2",
+		TotalPrice:        "200.00",
+		PreferentialPrice: "50.00",
+		TotalPayPrice:     "150.00",
+	}
+	p2 := &xmhsdk.DItem{
+		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+		SkuId:             "SKU001",
+		ItemName:          "Durable Concrete Shirt",
+		Currency:          "USD",
+		UnitPrice:         "100.00",
+		UnitNum:           "2",
+		TotalPrice:        "200.00",
+		PreferentialPrice: "50.00",
+		TotalPayPrice:     "150.00",
+	}
+	p3 := &xmhsdk.DItem{
+		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+		SkuId:             "SKU001",
+		ItemName:          "Durable Concrete Shirt",
+		Currency:          "USD",
+		UnitPrice:         "100.00",
+		UnitNum:           "2",
+		TotalPrice:        "200.00",
+		PreferentialPrice: "50.00",
+		TotalPayPrice:     "150.00",
+	}
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1739774198",
-		SubOrderId: "1739774198",
+		OrderId:    "1739867935",
+		SubOrderId: "1739867935",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
 				ShipId:             strconv.Itoa(int(time.Now().Unix())),
@@ -51,7 +83,17 @@ func TestShip(t *testing.T) {
 							"Product":   "Durable Concrete Shirt",
 						},
 					},
-				},
+				}, {
+					ItemId:            "666666",
+					SkuId:             "SKU002",
+					ItemName:          "Durable Concrete Shirt",
+					Currency:          "USD",
+					UnitPrice:         "100.00",
+					UnitNum:           "2",
+					TotalPrice:        "200.00",
+					PreferentialPrice: "50.00",
+					TotalPayPrice:     "150.00",
+				}, p1.AddOneYearPp("10.00"), p2.AddTwoYearPp("10.00"), p3.AddThreeYearPp("10.00"),
 					//{
 					//	ItemId:            "666666",
 					//	SkuId:             "SKU002",

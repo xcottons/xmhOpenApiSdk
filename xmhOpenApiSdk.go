@@ -19,15 +19,18 @@ const (
 	EnvIdc   = EnvMark(200)
 	EnvBeta  = EnvMark(600)
 	EnvAlpha = EnvMark(500)
+	EnvLocal = EnvMark(100)
 )
 
 var (
 	AlphaBaseUrl    string = "https://alphaxcottons.xinhulu.com"
 	BetaBaseUrl     string = "https://betaxcottons.xinhulu.com"
 	IdcBaseUrl      string = "https://seller.xcottons.com"
+	LocalBaseUrl    string = ""
 	SignSecretIdc   string = "ex_xmh_idc"
 	SignSecretBeta  string = "ex_xmh_test"
 	SignSecretAlpha string = "ex_xmh_test"
+	SignSecretLocal string = "ex_xmh_test"
 )
 var (
 	AppId     string

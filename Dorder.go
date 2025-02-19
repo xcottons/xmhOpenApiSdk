@@ -37,10 +37,9 @@ type DOrder struct {
 	OrderState        OrderState     `json:"orderState"`
 	SenderInfo        *SenderInfoDto `json:"senderInfo"`
 	*ReceiverInfoDto  `json:"receiverInfo"`
-	OrderCreateTime   string      `json:"orderCreateTime" validate:"omitempty"`
-	OrderModifyTime   string      `json:"orderModifyTime" validate:"omitempty"`
-	IsHistoryOrder    bool        `json:"isHistoryOrder"`
-	ShipInfoList      []*ShipInfo `json:"shipInfoList"`
+	OrderCreateTime   string `json:"orderCreateTime" validate:"omitempty"`
+	OrderModifyTime   string `json:"orderModifyTime" validate:"omitempty"`
+	IsHistoryOrder    bool   `json:"isHistoryOrder"`
 }
 
 type SenderInfoDto struct {
@@ -90,14 +89,15 @@ type PlatformOrderResult struct {
 }
 
 type PlatformOrderParam struct {
-	UserId            string  `json:"userId" validate:"required"`
-	UserEmail         string  `json:"userEmail" validate:"required,email"`
-	OrderInfo         *DOrder `json:"orderInfo" validate:"required"`
-	BuyerIp           string  `json:"buyerIp"`
-	DisRcId           string  `json:"disRcId"`
-	DisComputeId      string  `json:"disComputeId"`
-	ShopId            string  `json:"shopId"`
-	DisXmhShopOrderId string  `json:"disXmhShopOrderId"`
+	UserId            string      `json:"userId" validate:"required"`
+	UserEmail         string      `json:"userEmail" validate:"required,email"`
+	OrderInfo         *DOrder     `json:"orderInfo" validate:"required"`
+	ShipInfoList      []*ShipInfo `json:"shipInfoList"`
+	BuyerIp           string      `json:"buyerIp"`
+	DisRcId           string      `json:"disRcId"`
+	DisComputeId      string      `json:"disComputeId"`
+	ShopId            string      `json:"shopId"`
+	DisXmhShopOrderId string      `json:"disXmhShopOrderId"`
 }
 
 type CancelOrderParam struct {

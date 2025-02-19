@@ -7,8 +7,8 @@ import (
 )
 
 func TestSync(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{
@@ -33,8 +33,8 @@ func TestSync(t *testing.T) {
 }
 
 func TestSyncWithVariants(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{
@@ -97,8 +97,8 @@ func TestSyncWithVariants(t *testing.T) {
 }
 
 func TestSyncWithFile(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{

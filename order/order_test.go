@@ -9,8 +9,8 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -18,9 +18,9 @@ func TestSpOrder(t *testing.T) {
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:         strconv.Itoa(int(time.Now().Unix())),
 			SubOrderId:      "SubOrderId6",
-			TotalPayPrice:   "150.00",
+			TotalPayPrice:   "303.00",
 			Currency:        "USD",
-			OrderState:      xmhsdk.OERDER_STATE_PAID,
+			OrderState:      xmhsdk.OERDER_STATE_SHIPPED,
 			InsuredPayPrice: "3.00",
 			TaxPrice:        "0.00",
 			ShipPrice:       "0.00",
@@ -47,6 +47,42 @@ func TestSpOrder(t *testing.T) {
 				TotalPayPrice:     "150.00",
 			}},
 		},
+		ShipInfoList: []*xmhsdk.ShipInfo{
+			{
+				ShipId:             strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode:    "SF",
+				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+				ShipStateString:    "已发货",
+				ShipPrice:          "6.00",
+				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				ShipOtherInfo: &xmhsdk.ShipAddress{
+					Country:  "中国",
+					Province: "浙江省",
+					City:     "杭州市",
+				},
+				ItemList: []*xmhsdk.DItem{{
+					ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+					SkuId:             "SKU001",
+					ItemName:          "Durable Concrete Shirt",
+					Currency:          "USD",
+					UnitPrice:         "100.00",
+					UnitNum:           "2",
+					TotalPrice:        "200.00",
+					PreferentialPrice: "50.00",
+					TotalPayPrice:     "150.00",
+				}, {
+					ItemId:            "666666",
+					SkuId:             "SKU002",
+					ItemName:          "Durable Concrete Shirt",
+					Currency:          "USD",
+					UnitPrice:         "100.00",
+					UnitNum:           "2",
+					TotalPrice:        "200.00",
+					PreferentialPrice: "50.00",
+					TotalPayPrice:     "150.00",
+				}},
+			},
+		},
 	}
 	pr, err := New(params)
 	if err != nil {
@@ -56,8 +92,8 @@ func TestSpOrder(t *testing.T) {
 }
 
 func TestPpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -117,8 +153,8 @@ func TestPpOrder(t *testing.T) {
 }
 
 func TestPpOrders(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -187,8 +223,8 @@ func TestPpOrders(t *testing.T) {
 }
 
 func TestMutiOrder(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -281,8 +317,8 @@ func TestMutiOrder(t *testing.T) {
 }
 
 func TestOrderWithShip(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -296,28 +332,28 @@ func TestOrderWithShip(t *testing.T) {
 		PreferentialPrice: "50.00",
 		TotalPayPrice:     "150.00",
 	}
-	//p2 := &xmhsdk.DItem{
-	//	ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-	//	SkuId:             "SKU001",
-	//	ItemName:          "Durable Concrete Shirt",
-	//	Currency:          "USD",
-	//	UnitPrice:         "100.00",
-	//	UnitNum:           "2",
-	//	TotalPrice:        "200.00",
-	//	PreferentialPrice: "50.00",
-	//	TotalPayPrice:     "150.00",
-	//}
-	//p3 := &xmhsdk.DItem{
-	//	ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-	//	SkuId:             "SKU001",
-	//	ItemName:          "Durable Concrete Shirt",
-	//	Currency:          "USD",
-	//	UnitPrice:         "100.00",
-	//	UnitNum:           "2",
-	//	TotalPrice:        "200.00",
-	//	PreferentialPrice: "50.00",
-	//	TotalPayPrice:     "150.00",
-	//}
+	p2 := &xmhsdk.DItem{
+		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+		SkuId:             "SKU001",
+		ItemName:          "Durable Concrete Shirt",
+		Currency:          "USD",
+		UnitPrice:         "100.00",
+		UnitNum:           "2",
+		TotalPrice:        "200.00",
+		PreferentialPrice: "50.00",
+		TotalPayPrice:     "150.00",
+	}
+	p3 := &xmhsdk.DItem{
+		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+		SkuId:             "SKU001",
+		ItemName:          "Durable Concrete Shirt",
+		Currency:          "USD",
+		UnitPrice:         "100.00",
+		UnitNum:           "2",
+		TotalPrice:        "200.00",
+		PreferentialPrice: "50.00",
+		TotalPayPrice:     "150.00",
+	}
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail: "VIPER3@qq.com",
 		OrderInfo: &xmhsdk.DOrder{
@@ -367,44 +403,44 @@ func TestOrderWithShip(t *testing.T) {
 				//	TotalPayPrice:     "150.00",
 				//},
 				p1.AddThreeYearPp("12.00"),
-				//p2.AddTwoYearPp("10.00"), p3.AddThreeYearPp("10.00")
+				p2.AddTwoYearPp("10.00"), p3.AddThreeYearPp("10.00"),
 			},
-			ShipInfoList: []*xmhsdk.ShipInfo{
-				{
-					ShipId:             strconv.Itoa(int(time.Now().Unix())),
-					ShipCompanyCode:    "SF",
-					ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
-					ShipStateString:    "已发货",
-					ShipPrice:          "6.00",
-					ActualShipSendTime: time.Now().Format(time.RFC3339),
-					ShipOtherInfo: &xmhsdk.ShipAddress{
-						Country:  "中国",
-						Province: "浙江省",
-						City:     "杭州市",
-					},
-					ItemList: []*xmhsdk.DItem{{
-						ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-						SkuId:             "SKU001",
-						ItemName:          "Durable Concrete Shirt",
-						Currency:          "USD",
-						UnitPrice:         "100.00",
-						UnitNum:           "2",
-						TotalPrice:        "200.00",
-						PreferentialPrice: "50.00",
-						TotalPayPrice:     "150.00",
-						PpVariant: &xmhsdk.PPVariant{
-							VariantID:   "",
-							Name:        "3 Years",
-							PriceString: "10.00",
-							Currency:    "USD",
-							Properties: map[string]string{
-								"Reference": "97760109-16ad-40c9-9385-caba381a26aa",
-								"Plan ID":   "10802003",
-								"Product":   "Durable Concrete Shirt",
-							},
+		},
+		ShipInfoList: []*xmhsdk.ShipInfo{
+			{
+				ShipId:             strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode:    "SF",
+				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+				ShipStateString:    "已发货",
+				ShipPrice:          "6.00",
+				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				ShipOtherInfo: &xmhsdk.ShipAddress{
+					Country:  "中国",
+					Province: "浙江省",
+					City:     "杭州市",
+				},
+				ItemList: []*xmhsdk.DItem{{
+					ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+					SkuId:             "SKU001",
+					ItemName:          "Durable Concrete Shirt",
+					Currency:          "USD",
+					UnitPrice:         "100.00",
+					UnitNum:           "1",
+					TotalPrice:        "200.00",
+					PreferentialPrice: "50.00",
+					TotalPayPrice:     "150.00",
+					PpVariant: &xmhsdk.PPVariant{
+						VariantID:   "",
+						Name:        "3 Years",
+						PriceString: "10.00",
+						Currency:    "USD",
+						Properties: map[string]string{
+							"Reference": "97760109-16ad-40c9-9385-caba381a26aa",
+							"Plan ID":   "10802003",
+							"Product":   "Durable Concrete Shirt",
 						},
 					},
-					},
+				},
 				},
 			},
 		},
