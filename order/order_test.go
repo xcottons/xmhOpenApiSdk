@@ -14,7 +14,8 @@ func TestSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "VIPER3@qq.com",
+		UserEmail:    "VIPER3@qq.com",
+		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:         strconv.Itoa(int(time.Now().Unix())),
 			SubOrderId:      "SubOrderId6",
@@ -104,7 +105,7 @@ func TestPpOrder(t *testing.T) {
 			TotalPayPrice:   "603.00",
 			Currency:        "USD",
 			OrderState:      xmhsdk.OERDER_STATE_PAID,
-			InsuredPayPrice: "3.00",
+			InsuredPayPrice: "0.00",
 			TaxPrice:        "0.00",
 			ShipPrice:       "0.00",
 			PayTime:         "2025-01-02T15:04:05Z07:00",
@@ -355,7 +356,8 @@ func TestOrderWithShip(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "VIPER3@qq.com",
+		UserEmail:    "VIPER3@qq.com",
+		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:         strconv.Itoa(int(time.Now().Unix())),
 			SubOrderId:      strconv.Itoa(int(time.Now().Unix())),

@@ -84,8 +84,8 @@ func (d *DOrder) AddSp(orderTotalPayFee string) *DOrder {
 
 type PlatformOrderResult struct {
 	OrderId           string   `json:"orderId"`           //your orderId
-	DisXmhShopOrderId string   `json:"disXmhShopOrderId"` //xmh saved your orderId
-	DisXmhLDealIds    []string `json:"disXmhLDealIds"`    //xmh service deal id list,  one of your order maybe gen multiple deal
+	XmhShopOrderId    string   `json:"xmhShopOrderId"`    //xmh saved your orderId
+	XmhServiceDealIds []string `json:"xmhServiceDealIds"` //xmh service deal id list,  one of your order maybe gen multiple deal
 }
 
 type PlatformOrderParam struct {

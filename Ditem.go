@@ -3,9 +3,9 @@ package xmhOpenApiSdk
 import "errors"
 
 var (
-	PPPlanCodeFor1Years = "10802001"
-	PPPlanCodeFor2Years = "10802002"
-	PPPlanCodeFor3Years = "10802003"
+	PPPlanCodeFor1Years = "1 Year"
+	PPPlanCodeFor2Years = "2 Years"
+	PPPlanCodeFor3Years = "3 Years"
 )
 
 type PpPlanYear int
