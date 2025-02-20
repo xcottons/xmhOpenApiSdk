@@ -438,7 +438,7 @@ func TestOrderWithShip(t *testing.T) {
 						Currency:    "USD",
 						Properties: map[string]string{
 							"Reference": "97760109-16ad-40c9-9385-caba381a26aa",
-							"Plan ID":   "10802003",
+							"Plan ID":   xmhsdk.PPPlanCodeFor2Years,
 							"Product":   "Durable Concrete Shirt",
 						},
 					},

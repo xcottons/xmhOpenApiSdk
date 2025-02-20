@@ -109,6 +109,8 @@ func (d *DItem) AddThreeYearPp(pPrice string) *DItem {
 }
 
 type ProductItemsParam struct {
+	BusiId  string         `json:"busiId"`
+	BatchId uint64         `json:"batchId"`
 	Items   []*ProductItem `json:"items"`
 	FileUrl string         `json:"fileUrl"`
 }
@@ -123,6 +125,10 @@ type ProductItem struct {
 	Variants       []OpenApiPlatformProductItemVariant `json:"variants,omitempty"`
 	ItemPriceExt   string                              `json:"itemPriceExt,omitempty"`
 	ItemDetailExt  string                              `json:"itemDetailExt,omitempty"`
+	VariantId      string                              `json:"variantId"`
+	SkuId          string                              `json:"skuId"`
+	Name           string                              `json:"Name"`
+	Price          string                              `json:"price"`
 }
 type OpenApiPlatformProductItemVariant struct {
 	VariantId string `json:"variantId"`
