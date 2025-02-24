@@ -57,6 +57,7 @@ type DItem struct {
 	TotalPriceInt        int64           `json:"totalPriceInt"`
 	TotalPayPrice        string          `json:"totalPayPrice"`
 	TotalPayPriceInt     int64           `json:"totalPayPriceInt"`
+	InsuredPayPrice      string          `json:"insuredPayPrice,omitempty" validate:"omitempty,numeric"`
 	Properties           DItemProperties `json:"Properties"`
 	PpVariant            *PPVariant      `json:"ppVariant"`
 }
@@ -79,6 +80,7 @@ func (d *DItem) AddPp(pPrice string, py PpPlanYear) (*DItem, error) {
 		d.Properties = DItemProperties{
 			"Plan ID": pId,
 		}
+		d.InsuredPayPrice = pPrice
 		d.PpVariant = &PPVariant{
 			VariantID:      "",
 			Name:           ppYearsMap[py],

@@ -32,6 +32,7 @@ type DOrder struct {
 	ShipPrice         string         `json:"shipPrice" validate:"omitempty,numeric"`
 	TotalPayPrice     string         `json:"totalPayPrice" validate:"omitempty,numeric"`
 	InsuredPayPrice   string         `json:"insuredPayPrice,omitempty" validate:"omitempty,numeric"`
+	PaySn             string         `json:"paySn"`
 	PayTime           string         `json:"payTime" validate:"omitempty"`
 	ItemList          []*DItem       `json:"itemList"`
 	OrderState        OrderState     `json:"orderState"`
