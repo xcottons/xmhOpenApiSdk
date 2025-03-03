@@ -60,6 +60,7 @@ type DItem struct {
 	InsuredPayPrice      string          `json:"insuredPayPrice,omitempty" validate:"omitempty,numeric"`
 	Properties           DItemProperties `json:"Properties"`
 	PpVariant            *PPVariant      `json:"ppVariant"`
+	ServiceOrderIds      []string        `json:"serviceOrderIds"`
 }
 type PPVariant struct {
 	VariantID      string          `json:"variantId,omitempty"` // 延保险商品的变体ID

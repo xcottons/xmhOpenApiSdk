@@ -84,9 +84,9 @@ func (d *DOrder) AddSp(orderTotalPayFee string) *DOrder {
 }
 
 type PlatformOrderResult struct {
-	OrderId           string   `json:"orderId"`           //your orderId
-	XmhShopOrderId    string   `json:"xmhShopOrderId"`    //xmh saved your orderId
-	XmhServiceDealIds []string `json:"xmhServiceDealIds"` //xmh service deal id list,  one of your order maybe gen multiple deal
+	OrderId        string    `json:"orderId"`        //your orderId
+	XmhShopOrderId string    `json:"xmhShopOrderId"` //xmh saved your orderId
+	Insurance      Insurance `json:"insurance"`
 }
 
 type PlatformOrderParam struct {
@@ -129,4 +129,17 @@ type InsuredOrderResult struct {
 
 type CancelOrderResult struct {
 	DisXmhShopOrderId string `json:"disXmhShopOrderId"`
+}
+
+type Insurance struct {
+	SPInsureDetail SPInsureDetail `json:"spInsureDetail"`
+	PPInsureDetail PPInsureDetail `json:"ppInsureDetail"`
+}
+
+type SPInsureDetail struct {
+	ServiceOrderID string `json:"serviceOrderId"`
+}
+
+type PPInsureDetail struct {
+	InsureItemList []*DItem `json:"insureItemList"`
 }

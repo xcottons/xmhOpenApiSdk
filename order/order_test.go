@@ -15,17 +15,20 @@ func TestSpOrder(t *testing.T) {
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail:    "VIPER3@qq.com",
+		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
-			OrderId:         strconv.Itoa(int(time.Now().Unix())),
-			SubOrderId:      "SubOrderId6",
-			TotalPayPrice:   "303.00",
-			Currency:        "USD",
-			OrderState:      xmhsdk.OERDER_STATE_SHIPPED,
-			InsuredPayPrice: "3.00",
-			TaxPrice:        "0.00",
-			ShipPrice:       "0.00",
-			PayTime:         "2025-01-02T15:04:05Z07:00",
+			OrderId:           strconv.Itoa(int(time.Now().Unix())),
+			SubOrderId:        "SubOrderId6",
+			TotalPayPrice:     "303.00",
+			TotalPrice:        "303.00",
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_SHIPPED,
+			InsuredPayPrice:   "3.00",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           time.Now().Format(time.RFC3339),
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 				SkuId:             "SKU001",
@@ -263,16 +266,19 @@ func TestMutiOrder(t *testing.T) {
 	}
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail: "VIPER3@qq.com",
+		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
-			OrderId:         strconv.Itoa(int(time.Now().Unix())),
-			SubOrderId:      strconv.Itoa(int(time.Now().Unix())),
-			TotalPayPrice:   "603.00",
-			Currency:        "USD",
-			OrderState:      xmhsdk.OERDER_STATE_PAID,
-			InsuredPayPrice: "3.00",
-			TaxPrice:        "0.00",
-			ShipPrice:       "0.00",
-			PayTime:         time.Now().Format(time.RFC3339),
+			OrderId:           strconv.Itoa(int(time.Now().Unix())),
+			SubOrderId:        "SubOrderId6",
+			TotalPayPrice:     "303.00",
+			TotalPrice:        "303.00",
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_SHIPPED,
+			InsuredPayPrice:   "3.00",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           time.Now().Format(time.RFC3339),
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 				SkuId:             "SKU001",
@@ -286,6 +292,7 @@ func TestMutiOrder(t *testing.T) {
 				Properties: map[string]string{
 					"Plan ID": "10802003",
 				},
+				InsuredPayPrice: "3.00",
 				PpVariant: &xmhsdk.PPVariant{
 					VariantID:   "",
 					Name:        "1 Years",
