@@ -112,6 +112,15 @@ type CancelOrderParam struct {
 	TotalRefundPrice  string   `json:"totalRefundPrice,omitempty"`
 	CancelItems       []*DItem `json:"cancelItems,omitempty"`
 }
+
+type CancelServiceOrderParam struct {
+	CancelItems []CancelServiceOrderItem `json:"cancelItems"` // 退费服务单列表
+}
+type CancelServiceOrderItem struct {
+	ServiceOrderId string `json:"serviceOrderId" validate:"required"` // 退费服务单号
+	CancelFee      string `json:"cancelFee,omitempty"`                // 退费金额
+	Currency       string `json:"currency,omitempty"`                 // 退费金额币种
+}
 type InsuredOrderParam struct {
 	UserId            string  `json:"userId" validate:"required"`
 	UserEmail         string  `json:"userEmail" validate:"required,email"`
@@ -129,6 +138,9 @@ type InsuredOrderResult struct {
 
 type CancelOrderResult struct {
 	DisXmhShopOrderId string `json:"disXmhShopOrderId"`
+}
+
+type CancelServiceOrderResult struct {
 }
 
 type Insurance struct {

@@ -5,8 +5,9 @@ import (
 )
 
 const platformOrderURL = "SyncPlatformOrder"
-const cancelOrderURl = ""
-const insureOrderURl = ""
+const cancelOrderURl = "CancelInsured"
+const insureOrderURl = "Insured"
+const cancelServiceOrder = "CancelServiceOrder"
 
 func New(params *xmhsdk.PlatformOrderParam) (*xmhsdk.PlatformOrderResult, error) {
 	result := &xmhsdk.PlatformOrderResult{}
@@ -33,4 +34,13 @@ func Insured(params *xmhsdk.InsuredOrderParam) (*xmhsdk.InsuredOrderResult, erro
 		return nil, err
 	}
 	return result, nil
+}
+
+func CancelServiceOrder(param *xmhsdk.CancelServiceOrderParam) error {
+	result := &xmhsdk.CancelServiceOrderResult{}
+	err := xmhsdk.MakeRequest(cancelServiceOrder, param, result)
+	if err != nil {
+		return err
+	}
+	return nil
 }
