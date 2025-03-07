@@ -100,7 +100,7 @@ func TestPpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "VIPER3@qq.com",
+		UserEmail: "yujianfx@shouhui-tech.com",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -175,9 +175,10 @@ func TestPpOrders(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	p2 := &xmhsdk.DItem{
-		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-		SkuId:             "SKU001",
-		ItemName:          "Durable Concrete Shirt",
+		ItemId:            "b565f726-ff0f-434d-aa31-e3e3cee15c0c",
+		SkuId:             "sku1",
+		VariantId:         "var1",
+		ItemName:          "Gorgeous Bronze Knife",
 		Currency:          "USD",
 		UnitPrice:         "100.00",
 		UnitNum:           "2",
@@ -197,7 +198,7 @@ func TestPpOrders(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "VIPER3@qq.com",
+		UserEmail: "yujianfx@shouhui-tech.com",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -279,7 +280,7 @@ func TestMutiOrder(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "VIPER3@qq.com",
+		UserEmail: "yujianfx@shouhui-tech.com",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -293,6 +294,15 @@ func TestMutiOrder(t *testing.T) {
 			ShipPrice:         "0.00",
 			PreferentialPrice: "0.00",
 			PayTime:           time.Now().Format(time.RFC3339),
+			PaySn:             strconv.Itoa(int(time.Now().Unix())),
+			OrderModifyTime:   time.Now().Format(time.RFC3339),
+			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "CN",
+					CityCode: "CN",
+				},
+			},
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 				SkuId:             "SKU001",
@@ -377,7 +387,7 @@ func TestOrderWithShip(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "VIPER3@qq.com",
+		UserEmail:    "yujianfx@shouhui-tech.com",
 		DisComputeId: "xcp-00222580000000000508829558",
 		UserId:       "xcp-VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
@@ -393,6 +403,14 @@ func TestOrderWithShip(t *testing.T) {
 			ShipPrice:         "0.00",
 			PayTime:           time.Now().Format(time.RFC3339),
 			PaySn:             strconv.Itoa(int(time.Now().Unix())),
+			OrderModifyTime:   time.Now().Format(time.RFC3339),
+			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "CN",
+					CityCode: "CN",
+				},
+			},
 			ItemList: []*xmhsdk.DItem{
 				//	{
 				//	ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
@@ -429,7 +447,7 @@ func TestOrderWithShip(t *testing.T) {
 				//	PreferentialPrice: "50.00",
 				//	TotalPayPrice:     "150.00",
 				//},
-				p1.AddThreeYearPp("12.00"),
+				p1.AddOneYearPp("12.00"),
 				p2.AddTwoYearPp("10.00"), p3.AddThreeYearPp("10.00"),
 			},
 		},
@@ -439,6 +457,7 @@ func TestOrderWithShip(t *testing.T) {
 				ShipCompanyCode:    "SF",
 				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
 				ShipStateString:    "已发货",
+				ShipCompany:        "SF",
 				ShipPrice:          "6.00",
 				ActualShipSendTime: time.Now().Format(time.RFC3339),
 				ShipOtherInfo: &xmhsdk.ShipAddress{
