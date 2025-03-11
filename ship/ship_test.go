@@ -15,12 +15,13 @@ func TestShipSpOrder(t *testing.T) {
 	auth.New()
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1741232270",
+		OrderId:    "1741663248",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
 				ShipId:             strconv.Itoa(int(time.Now().Unix())),
 				ShipCompanyCode:    "SF",
+				ShipCompany:        "SF",
 				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
 				ShipStateString:    "已发货",
 				ShipPrice:          "6.00",

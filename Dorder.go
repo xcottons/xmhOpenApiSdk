@@ -114,7 +114,7 @@ type CancelOrderParam struct {
 }
 
 type CancelServiceOrderParam struct {
-	CancelItems []CancelServiceOrderItem `json:"cancelItems"` // 退费服务单列表
+	CancelServiceOrderItems []CancelServiceOrderItem `json:"cancelServiceOrderItems"` // 退费服务单列表
 }
 type CancelServiceOrderItem struct {
 	ServiceOrderId string `json:"serviceOrderId" validate:"required"` // 退费服务单号
@@ -141,6 +141,12 @@ type CancelOrderResult struct {
 }
 
 type CancelServiceOrderResult struct {
+	ServiceOrderIds []string `json:"serviceOrderIds"` // XMH侧的逻辑单ID列表
+	CancelError     []*OpenApiCancelInsuredResError
+}
+type OpenApiCancelInsuredResError struct {
+	ServiceOrderId string `json:"serviceOrderId"`
+	Error          string `json:"error"`
 }
 
 type Insurance struct {

@@ -28,11 +28,11 @@ func Cancel(params *xmhsdk.CancelOrderParam) (*xmhsdk.CancelOrderResult, error) 
 	return result, nil
 }
 
-func CancelServiceOrder(param *xmhsdk.CancelServiceOrderParam) error {
+func CancelServiceOrder(param *xmhsdk.CancelServiceOrderParam) (*xmhsdk.CancelServiceOrderResult, error) {
 	result := &xmhsdk.CancelServiceOrderResult{}
 	err := xmhsdk.MakeRequest(cancelServiceOrder, param, result)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result, nil
 }
