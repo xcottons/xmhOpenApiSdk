@@ -13,7 +13,7 @@ func TestTestCancelSpServiceOrder(t *testing.T) {
 	auth.New()
 	param := &xmhsdk.CancelServiceOrderParam{
 		CancelServiceOrderItems: []xmhsdk.CancelServiceOrderItem{
-			{ServiceOrderId: "20250310XSP11675436AC758"},
+			{ServiceOrderId: "20250311XSP11675436AD758"},
 		},
 	}
 	result, err := CancelServiceOrder(param)

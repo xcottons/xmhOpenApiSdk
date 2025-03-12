@@ -15,7 +15,7 @@ func TestShipSpOrder(t *testing.T) {
 	auth.New()
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1741663248",
+		OrderId:    "1741748567",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{

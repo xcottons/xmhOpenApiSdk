@@ -14,7 +14,7 @@ func TestSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "yujianfx@shouhui-tech.com",
+		UserEmail:    "wejnoospkonr@hldrive.com",
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
@@ -102,7 +102,7 @@ func TestPpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "yujianfx@shouhui-tech.com",
+		UserEmail: "wejnoospkonr@hldrive.com",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -200,7 +200,7 @@ func TestPpOrders(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "yujianfx@shouhui-tech.com",
+		UserEmail: "wejnoospkonr@hldrive.com",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -282,7 +282,7 @@ func TestMutiOrder(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "yujianfx@shouhui-tech.com",
+		UserEmail: "wejnoospkonr@hldrive.com",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -389,7 +389,7 @@ func TestOrderWithShip(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "yujianfx@shouhui-tech.com",
+		UserEmail:    "wejnoospkonr@hldrive.com",
 		DisComputeId: "xcp-00222580000000000508829558",
 		UserId:       "xcp-VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
@@ -466,7 +466,7 @@ func TestZeroAmountSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "yujianfx@shouhui-tech.com",
+		UserEmail:    "wejnoospkonr@hldrive.com",
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
