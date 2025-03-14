@@ -114,12 +114,14 @@ type CancelOrderParam struct {
 }
 
 type CancelServiceOrderParam struct {
-	CancelServiceOrderItems []CancelServiceOrderItem `json:"cancelServiceOrderItems"` // 退费服务单列表
+	CancelServiceOrderItems []CancelServiceOrderItem `json:"cancelServiceOrderItems"`
 }
 type CancelServiceOrderItem struct {
-	ServiceOrderId string `json:"serviceOrderId" validate:"required"` // 退费服务单号
-	CancelFee      string `json:"cancelFee,omitempty"`                // 退费金额
-	Currency       string `json:"currency,omitempty"`                 // 退费金额币种
+	CancelId       string   `json:"cancelId"  validate:"required"`
+	ServiceOrderId string   `json:"serviceOrderId" validate:"required"`
+	CancelFee      string   `json:"cancelFee,omitempty"`
+	Currency       string   `json:"currency,omitempty"`
+	CancelItems    []*DItem `json:"cancelItems,omitempty"`
 }
 type InsuredOrderParam struct {
 	UserId            string  `json:"userId" validate:"required"`

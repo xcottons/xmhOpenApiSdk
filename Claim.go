@@ -28,7 +28,7 @@ type ClaimItemsQueryParam struct {
 	ClaimInsuranceType int32  `json:"claimInsuranceType"`
 }
 type ClaimItems struct {
-	Items []*OpenApiClaimItem `json:"items"`
+	Items []*OpenApiClaimItem `json:"claimItems"`
 }
 
 type OpenApiClaimItem struct {

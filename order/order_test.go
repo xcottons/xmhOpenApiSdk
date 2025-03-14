@@ -9,9 +9,9 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1000160"
+	xmhsdk.AppSecret = "xzs6We8YcKdpHrGQn8XHpyGCNg0a7sd7"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail:    "wejnoospkonr@hldrive.com",
@@ -111,7 +111,7 @@ func TestPpOrder(t *testing.T) {
 			TotalPrice:        "303.00",
 			Currency:          "USD",
 			OrderState:        xmhsdk.OERDER_STATE_PAID,
-			InsuredPayPrice:   "3.00",
+			InsuredPayPrice:   "0",
 			TaxPrice:          "0.00",
 			ShipPrice:         "0.00",
 			PreferentialPrice: "0.00",
@@ -135,7 +135,7 @@ func TestPpOrder(t *testing.T) {
 				TotalPrice:        "200.00",
 				PreferentialPrice: "50.00",
 				TotalPayPrice:     "150.00",
-				InsuredPayPrice:   "5.0",
+				InsuredPayPrice:   "20.0",
 				//Properties: map[string]string{
 				//	"Plan ID": "10802003",
 				//},
