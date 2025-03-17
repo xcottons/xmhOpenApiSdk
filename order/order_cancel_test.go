@@ -9,13 +9,13 @@ import (
 )
 
 func TestTestCancelSpServiceOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1000160"
+	xmhsdk.AppSecret = "xzs6We8YcKdpHrGQn8XHpyGCNg0a7sd7"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	param := &xmhsdk.CancelServiceOrderParam{
 		CancelServiceOrderItems: []xmhsdk.CancelServiceOrderItem{
-			{ServiceOrderId: "20250312XSP11675436AEC58"},
+			{ServiceOrderId: "20250314XSP83011364A832"},
 		},
 	}
 	result, err := CancelServiceOrder(param)
