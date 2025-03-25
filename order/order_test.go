@@ -9,9 +9,9 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000160"
-	xmhsdk.AppSecret = "xzs6We8YcKdpHrGQn8XHpyGCNg0a7sd7"
-	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
 		UserEmail:    "wejnoospkonr@hldrive.com",
@@ -22,7 +22,7 @@ func TestSpOrder(t *testing.T) {
 			SubOrderId:        "SubOrderId6",
 			TotalPayPrice:     "303.00",
 			TotalPrice:        "303.00",
-			Currency:          "USD",
+			Currency:          "JPY",
 			OrderState:        xmhsdk.OERDER_STATE_PAID,
 			InsuredPayPrice:   "3.00",
 			TaxPrice:          "0.00",
@@ -36,6 +36,7 @@ func TestSpOrder(t *testing.T) {
 				ReceiverShipAddress: &xmhsdk.ShipAddress{
 					Country:  "CN",
 					CityCode: "CN",
+					City:     "亚特兰提斯",
 				},
 			},
 			ItemList: []*xmhsdk.DItem{{
@@ -44,7 +45,7 @@ func TestSpOrder(t *testing.T) {
 				ItemName:          "Durable Concrete Shirt",
 				Currency:          "USD",
 				UnitPrice:         "0",
-				UnitNum:           "2",
+				UnitNum:           "1",
 				TotalPrice:        "0",
 				PreferentialPrice: "0",
 				TotalPayPrice:     "150.00",

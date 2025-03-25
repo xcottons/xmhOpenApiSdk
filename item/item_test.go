@@ -14,15 +14,17 @@ func TestSync(t *testing.T) {
 	params := &xmhsdk.ProductItemsParam{
 		Items: []*xmhsdk.ProductItem{
 			{
-				PlatformItemId: "123",
+				PlatformItemId: "16GA5QRB5TO01_110",
 				ItemState:      1,
-				ItemName:       "TestProductItem",
-				Currency:       "CNY",
-				ItemPriceExt:   "123",
-				ItemDetailExt:  "123",
+				ItemName:       "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				Currency:       "CAD",
+				ItemPriceExt:   "{}",
+				ItemDetailExt:  "{}",
 				PicLink:        []string{"https://www.google.com"},
 				ItemLink:       "https://www.google.com",
 				Variants:       nil,
+				SkuId:          "",
+				Price:          "199.99",
 			},
 		},
 	}

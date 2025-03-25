@@ -9,13 +9,13 @@ import (
 )
 
 func TestShipSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000160"
-	xmhsdk.AppSecret = "xzs6We8YcKdpHrGQn8XHpyGCNg0a7sd7"
-	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1741950058",
+		OrderId:    "1742810029",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
@@ -27,9 +27,10 @@ func TestShipSpOrder(t *testing.T) {
 				ShipPrice:          "6.00",
 				ActualShipSendTime: time.Now().Format(time.RFC3339),
 				ShipOtherInfo: &xmhsdk.ShipAddress{
-					Country:  "中国",
-					Province: "浙江省",
-					City:     "杭州市",
+					Country:     "中国",
+					Province:    "浙江省",
+					City:        "杭州市",
+					CountryCode: "CN",
 				},
 				ItemList: []*xmhsdk.DItem{{
 					ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
