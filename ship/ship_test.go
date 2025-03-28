@@ -15,7 +15,7 @@ func TestShipSpOrder(t *testing.T) {
 	auth.New()
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1742810029",
+		OrderId:    "1742888630",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
@@ -74,17 +74,19 @@ func TestShipPpOrder(t *testing.T) {
 	}
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1741948760",
+		OrderId:    "1743150237",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
-				ShipId:             strconv.Itoa(int(time.Now().Unix())),
-				ShipCompanyCode:    "SF",
-				ShipCompany:        "SF",
-				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
-				ShipStateString:    "已发货",
-				ShipPrice:          "6.00",
-				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				ShipId:          strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode: "SF",
+				ShipCompany:     "SF",
+				ShipTrackNumber: strconv.Itoa(int(time.Now().Unix())),
+				ShipStateString: "已发货",
+				ShipPrice:       "6.00",
+				//ActualShipSendTime: time.Now().Format(time.RFC3339),
+
+				ActualShipSendTime: time.Date(2024, 2, 29, 11, 11, 11, 11, time.Local).Format(time.RFC3339),
 				ShipOtherInfo: &xmhsdk.ShipAddress{
 					Country:  "中国",
 					Province: "浙江省",

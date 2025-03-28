@@ -9,8 +9,8 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000151"
+	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -18,11 +18,11 @@ func TestSpOrder(t *testing.T) {
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
-			OrderId:           strconv.Itoa(int(time.Now().Unix())),
-			SubOrderId:        "SubOrderId6",
+			OrderId: strconv.Itoa(int(time.Now().Unix())),
+			//SubOrderId:        "SubOrderId6",
 			TotalPayPrice:     "303.00",
 			TotalPrice:        "303.00",
-			Currency:          "JPY",
+			Currency:          "USD",
 			OrderState:        xmhsdk.OERDER_STATE_PAID,
 			InsuredPayPrice:   "3.00",
 			TaxPrice:          "0.00",
