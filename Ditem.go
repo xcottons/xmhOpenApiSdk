@@ -112,10 +112,9 @@ func (d *DItem) AddThreeYearPp(pPrice string) *DItem {
 }
 
 type ProductItemsParam struct {
-	BusiId  string         `json:"busiId"`
-	BatchId uint64         `json:"batchId"`
-	Items   []*ProductItem `json:"items"`
-	FileUrl string         `json:"fileUrl"`
+	RequestId string         `json:"requestId"`
+	Items     []*ProductItem `json:"items"`
+	FileUrl   string         `json:"fileUrl"`
 }
 
 type ProductItem struct {

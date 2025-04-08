@@ -13,19 +13,19 @@ func TestShipSpOrder(t *testing.T) {
 	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
-
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1742888630",
-		SubOrderId: "SubOrderId6",
+		OrderId: "1744082334",
+		//SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
-				ShipId:             strconv.Itoa(int(time.Now().Unix())),
-				ShipCompanyCode:    "SF",
-				ShipCompany:        "SF",
-				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
-				ShipStateString:    "已发货",
-				ShipPrice:          "6.00",
-				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				ShipId:          strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode: "SF",
+				ShipCompany:     "SF",
+				ShipTrackNumber: strconv.Itoa(int(time.Now().Unix())),
+				ShipStateString: "已发货",
+				ShipPrice:       "6.00",
+				//ActualShipSendTime: time.Now().Format(time.RFC3339),
+				ActualShipSendTime: "2025-04-07T05:37:10.000Z",
 				ShipOtherInfo: &xmhsdk.ShipAddress{
 					Country:     "中国",
 					Province:    "浙江省",
@@ -38,7 +38,7 @@ func TestShipSpOrder(t *testing.T) {
 					ItemName:          "Durable Concrete Shirt",
 					Currency:          "USD",
 					UnitPrice:         "100.00",
-					UnitNum:           "1",
+					UnitNum:           "2",
 					TotalPrice:        "200.00",
 					PreferentialPrice: "50.00",
 					TotalPayPrice:     "150.00",
@@ -74,7 +74,7 @@ func TestShipPpOrder(t *testing.T) {
 	}
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1743150237",
+		OrderId:    "1744020342",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
@@ -90,7 +90,7 @@ func TestShipPpOrder(t *testing.T) {
 				ShipOtherInfo: &xmhsdk.ShipAddress{
 					Country:  "中国",
 					Province: "浙江省",
-					City:     "杭州市",
+					//City:     "杭州市",
 				},
 				ItemList: []*xmhsdk.DItem{item.AddOneYearPp("")},
 			},

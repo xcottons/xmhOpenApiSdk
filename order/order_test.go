@@ -9,8 +9,8 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000151"
-	xmhsdk.AppSecret = "3j0k9TkrkiPbvfl2eLjqfNHUBaTOvR1p"
+	xmhsdk.AppId = "1000161"
+	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -30,25 +30,26 @@ func TestSpOrder(t *testing.T) {
 			PreferentialPrice: "0.00",
 			PayTime:           time.Now().Format(time.RFC3339),
 			PaySn:             time.Now().Format(time.RFC3339),
-			OrderModifyTime:   time.Now().Format(time.RFC3339),
-			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			OrderModifyTime:   time.Now().Add(-8 * time.Hour).Format(time.RFC3339),
+			//OrderCreateTime:   time.Now().In(time.UTC).Add(-8 * time.Hour).Format(time.RFC3339),
+			OrderCreateTime: "2025-04-07T05:37:10.000Z",
 			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
 				ReceiverShipAddress: &xmhsdk.ShipAddress{
 					Country:  "CN",
 					CityCode: "CN",
-					City:     "亚特兰提斯",
+					//City:     "亚特兰提斯",
 				},
 			},
 			ItemList: []*xmhsdk.DItem{{
-				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-				SkuId:             "SKU001",
-				ItemName:          "Durable Concrete Shirt",
-				Currency:          "USD",
-				UnitPrice:         "0",
-				UnitNum:           "1",
-				TotalPrice:        "0",
-				PreferentialPrice: "0",
-				TotalPayPrice:     "150.00",
+				ItemId:    "97760109-16ad-40c9-9385-caba381a26aa",
+				SkuId:     "SKU001",
+				ItemName:  "Durable Concrete Shirt",
+				Currency:  "USD",
+				UnitPrice: "0",
+				UnitNum:   "2",
+				//TotalPrice:        "0",
+				//PreferentialPrice: "0",
+				TotalPayPrice: "150.00",
 			},
 				//{
 				//	ItemId:            "666666",
@@ -119,7 +120,8 @@ func TestPpOrder(t *testing.T) {
 			PayTime:           time.Now().Format(time.RFC3339),
 			PaySn:             time.Now().Format(time.RFC3339),
 			OrderModifyTime:   time.Now().Format(time.RFC3339),
-			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			//OrderCreateTime:   time.Now().Format(time.RFC3339),
+			OrderCreateTime: "2025-04-07T05:37:10.000Z",
 			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
 				ReceiverShipAddress: &xmhsdk.ShipAddress{
 					Country:  "CN",

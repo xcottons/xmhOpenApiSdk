@@ -24,11 +24,11 @@ func TestSync(t *testing.T) {
 				ItemLink:       "https://www.google.com",
 				Variants:       nil,
 				SkuId:          "",
-				Price:          "199.99",
+				Price:          "1199.99",
 			},
 		},
 	}
-	_, err := Sync(params)
+	err := Sync(params)
 	if err != nil {
 		panic(err)
 	}
@@ -92,7 +92,7 @@ func TestSyncWithVariants(t *testing.T) {
 			},
 		},
 	}
-	_, err := Sync(params)
+	err := Sync(params)
 	if err != nil {
 		panic(err)
 	}
@@ -106,7 +106,7 @@ func TestSyncWithFile(t *testing.T) {
 	params := &xmhsdk.ProductItemsParam{
 		FileUrl: "https://sslstatic.xiaoyusan.com/img/hyju/item.b325b0e1753dc8ad.csv",
 	}
-	_, err := Sync(params)
+	err := Sync(params)
 	if err != nil {
 		panic(err)
 	}
