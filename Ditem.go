@@ -32,6 +32,7 @@ type DItem struct {
 	ItemId               string          `json:"itemId" validate:"required"`
 	VariantId            string          `json:"variantId"`
 	SkuId                string          `json:"skuId"`
+	OrderGoodsId         string          `json:"orderGoodsId"`
 	ProductId            string          `json:"productId"`
 	ItemName             string          `json:"itemName" validate:"required"`
 	ItemDesc             string          `json:"itemDesc"`

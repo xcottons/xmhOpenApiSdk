@@ -3,15 +3,19 @@ package item
 import (
 	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
+	"strconv"
 	"testing"
+	"time"
 )
 
 func TestSync(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{
+		RequestId: strconv.Itoa(int(time.Now().Unix())),
 		Items: []*xmhsdk.ProductItem{
 			{
 				PlatformItemId: "16GA5QRB5TO01_110",
@@ -35,8 +39,9 @@ func TestSync(t *testing.T) {
 }
 
 func TestSyncWithVariants(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{
@@ -99,8 +104,9 @@ func TestSyncWithVariants(t *testing.T) {
 }
 
 func TestSyncWithFile(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{

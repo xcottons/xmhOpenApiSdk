@@ -9,12 +9,20 @@ type CalcParams struct {
 	IsShippingProtectionOpen bool    `json:"isShippingProtectionOpen"`
 }
 
+type PpCalcParams struct {
+	ItemList []*DItem `json:"itemList"`
+}
+
 type Calc struct {
 	RcResult        RcResult        `json:"rcResult"`
 	SpComputeResult SpComputeResult `json:"spComputeResult"`
 	PpComputeResult PpComputeResult `json:"ppComputeResult"`
 }
 
+type PpCalc struct {
+	RcResult        RcResult        `json:"rcResult"`
+	PpComputeResult PpComputeResult `json:"ppComputeResult"`
+}
 type RcResult struct {
 	DisRcId  string      `json:"disRcId"`
 	RcState  int         `json:"rcState"`

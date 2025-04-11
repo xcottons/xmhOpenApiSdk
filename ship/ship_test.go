@@ -9,8 +9,9 @@ import (
 )
 
 func TestShipSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ShipParam{
@@ -56,43 +57,44 @@ func TestShipSpOrder(t *testing.T) {
 }
 
 func TestShipPpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
-	item := xmhsdk.DItem{
-		ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-		SkuId:             "SKU001",
-		ItemName:          "Durable Concrete Shirt",
+	item := &xmhsdk.DItem{
+		ItemId: "16GA5QRB5TO01_110",
+		//SkuId:             "SKU001",
+		OrderGoodsId:      "16GA5QRB5TO01_110",
+		ItemName:          "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
 		Currency:          "USD",
 		UnitPrice:         "100.00",
 		UnitNum:           "2",
 		TotalPrice:        "200.00",
 		PreferentialPrice: "50.00",
 		TotalPayPrice:     "150.00",
-		InsuredPayPrice:   "20.0",
+		InsuredPayPrice:   "24.0",
 	}
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1744020342",
+		OrderId:    "1744199423",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
-				ShipId:          strconv.Itoa(int(time.Now().Unix())),
-				ShipCompanyCode: "SF",
-				ShipCompany:     "SF",
-				ShipTrackNumber: strconv.Itoa(int(time.Now().Unix())),
-				ShipStateString: "已发货",
-				ShipPrice:       "6.00",
-				//ActualShipSendTime: time.Now().Format(time.RFC3339),
-
-				ActualShipSendTime: time.Date(2024, 2, 29, 11, 11, 11, 11, time.Local).Format(time.RFC3339),
+				ShipId:             strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode:    "SF",
+				ShipCompany:        "SF",
+				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+				ShipStateString:    "已发货",
+				ShipPrice:          "6.00",
+				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				//ActualShipSendTime: time.Date(2024, 2, 29, 11, 11, 11, 11, time.Local).Format(time.RFC3339),
 				ShipOtherInfo: &xmhsdk.ShipAddress{
 					Country:  "中国",
 					Province: "浙江省",
 					//City:     "杭州市",
 				},
-				ItemList: []*xmhsdk.DItem{item.AddOneYearPp("")},
+				ItemList: []*xmhsdk.DItem{item},
 			},
 		},
 	}
@@ -105,8 +107,9 @@ func TestShipPpOrder(t *testing.T) {
 
 }
 func TestShip(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -215,8 +218,9 @@ func TestShip(t *testing.T) {
 }
 
 func TestShipWithShipTime(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -325,8 +329,9 @@ func TestShipWithShipTime(t *testing.T) {
 }
 
 func TestShipMultiPpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -395,8 +400,9 @@ func TestShipMultiPpOrder(t *testing.T) {
 }
 
 func TestConfuseShipPpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 
@@ -464,8 +470,9 @@ func TestConfuseShipPpOrder(t *testing.T) {
 }
 
 func TestConfuseAllShipPpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 

@@ -7,8 +7,9 @@ import (
 )
 
 func TestSpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.CalcParams{
@@ -22,7 +23,7 @@ func TestSpCalc(t *testing.T) {
 			Currency:      "USD",
 		},
 	}
-	calc, err := New(params)
+	calc, err := Calc(params)
 	if err != nil {
 		t.Errorf("calc price error: %s", err)
 	}
@@ -30,8 +31,9 @@ func TestSpCalc(t *testing.T) {
 }
 
 func TestPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.CalcParams{
@@ -65,7 +67,43 @@ func TestPpCalc(t *testing.T) {
 			}},
 		},
 	}
-	calc, err := New(params)
+	calc, err := Calc(params)
+	if err != nil {
+		t.Errorf("calc price error: %s", xmhsdk.ToStr(err))
+	}
+	t.Logf("calc price result: %s", xmhsdk.ToStr(calc))
+}
+
+func TestOnlyPpCalc(t *testing.T) {
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	auth.New()
+	params := &xmhsdk.PpCalcParams{
+		ItemList: []*xmhsdk.DItem{{
+			ItemId: "16GA5QRB5TO01_110",
+			//SkuId:             "SKU001",
+			ItemName:          "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+			Currency:          "USD",
+			UnitPrice:         "100.00",
+			UnitNum:           "2",
+			TotalPrice:        "200.00",
+			PreferentialPrice: "50.00",
+			TotalPayPrice:     "150.00",
+		}, {
+			ItemId:            "666666",
+			SkuId:             "SKU002",
+			ItemName:          "Durable Concrete Shirt",
+			Currency:          "USD",
+			UnitPrice:         "100.00",
+			UnitNum:           "2",
+			TotalPrice:        "200.00",
+			PreferentialPrice: "50.00",
+			TotalPayPrice:     "150.00",
+		}},
+	}
+	calc, err := PpCalc(params)
 	if err != nil {
 		t.Errorf("calc price error: %s", xmhsdk.ToStr(err))
 	}

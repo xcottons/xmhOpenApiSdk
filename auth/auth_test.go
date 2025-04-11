@@ -6,8 +6,9 @@ import (
 )
 
 func TestNewAuth(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth, err := New()
 	if err != nil {

@@ -199,9 +199,9 @@ func MakeRequest(urlPath string, params interface{}, resultData interface{}) err
 		Logger.Errorf("%s request error: %v", urlPath, apiRes.ErrMsg)
 		return fmt.Errorf("request error: %v", apiRes.ErrMsg)
 	}
-	if apiRes.Data == nil {
-		Logger.Errorf("%s request error: data is nil", urlPath)
-		return fmt.Errorf("request error: data is nil")
-	}
+	//if apiRes.Data == nil {
+	//	Logger.Errorf("%s request error: data is nil", urlPath)
+	//	return fmt.Errorf("request error: data is nil")
+	//}
 	return nil
 }

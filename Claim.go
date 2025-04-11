@@ -1,7 +1,7 @@
 package xmhOpenApiSdk
 
 type OpenApiClaimReport struct {
-	OrderID            string              `json:"orderId" validate:"required"`
+	ServiceOrderId     string              `json:"serviceOrderId" validate:"required"`
 	ClaimItems         []*OpenApiClaimItem `json:"claimItems" validate:"required"`
 	ClaimType          int                 `json:"claimType" validate:"required"`
 	FileLinks          []string            `json:"fileLinks" validate:"required"`
@@ -9,7 +9,9 @@ type OpenApiClaimReport struct {
 	ClaimPaymentObj    int                 `json:"claimPaymentObj" validate:"required"`
 	PaymentMethod      int                 `json:"paymentMethod" validate:"required"`
 	AccountInfo        AccountInfo         `json:"accountInfo" validate:"required"`
-	ClaimInsuranceType int32               `json:"claimInsuranceType"`
+	ClaimReportTime    string              `json:"claimReportTime"`
+	LossOccurrenceTime string              `json:"lossOccurrenceTime"`
+	Describe           string              `json:"describe"`
 }
 
 type AccountInfo struct {
@@ -27,17 +29,22 @@ type ClaimItemsQueryParam struct {
 	OrderID            string `json:"orderId" validate:"required"`
 	ClaimInsuranceType int32  `json:"claimInsuranceType"`
 }
-type ClaimItems struct {
-	Items []*OpenApiClaimItem `json:"claimItems"`
+type ServiceClaimItemsQueryParam struct {
+	ServiceOrderId string `json:"serviceOrderId"`
 }
+type ClaimItems []*OpenApiClaimItem
 
 type OpenApiClaimItem struct {
+	ProductId        string `json:"productId"`
 	ItemId           string `json:"itemId"`
 	SkuId            string `json:"skuId"`
-	ItemNum          int32  `json:"itemNum"`
-	MaxItemNum       int32  `json:"maxItemNum"`
+	OrderGoodsId     string `json:"orderGoodsId"`
+	PlanId           string `json:"planId"` //延保方案id
+	VariantId        string `json:"variantId"`
+	ItemNum          int32  `json:"itemNum"`     // 理赔申请的数量
+	MaxClaimNum      int32  `json:"maxClaimNum"` // 理赔商品最大可申请数量
 	Pic              string `json:"pic"`
-	GoodsName        string `json:"goodsName"`
+	ItemName         string `json:"itemName"`
 	ItemUnitPrice    string `json:"itemUnitPrice"`
 	ItemSumPrice     string `json:"itemSumPrice"`
 	PriceCurrency    string `json:"priceCurrency"`
@@ -46,4 +53,9 @@ type OpenApiClaimItem struct {
 	ClaimType        int32  `json:"claimType"`
 	ClaimState       int32  `json:"claimState"`
 	XmhServiceId     string `json:"xmhServiceId"`
+}
+
+type ClaimQueryParam struct {
+	ServiceOrderId string `json:"serviceOrderId"`
+	ClaimId        string `json:"claimId"`
 }

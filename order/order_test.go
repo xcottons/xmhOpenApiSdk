@@ -9,8 +9,9 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -99,8 +100,9 @@ func TestSpOrder(t *testing.T) {
 }
 
 func TestPpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -129,28 +131,29 @@ func TestPpOrder(t *testing.T) {
 				},
 			},
 			ItemList: []*xmhsdk.DItem{{
-				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-				SkuId:             "SKU001",
-				ItemName:          "Durable Concrete Shirt",
-				Currency:          "USD",
-				UnitPrice:         "100.00",
-				UnitNum:           "2",
-				TotalPrice:        "200.00",
-				PreferentialPrice: "50.00",
-				TotalPayPrice:     "150.00",
-				InsuredPayPrice:   "20.0",
+				ItemId: "16GA5QRB5TO01_110",
+				//SkuId:             "SKU001",
+				OrderGoodsId: "16GA5QRB5TO01_110",
+				ItemName:     "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				Currency:     "USD",
+				//UnitPrice:         "100.00",
+				UnitNum: "2",
+				//TotalPrice:        "200.00",
+				//PreferentialPrice: "50.00",
+				TotalPayPrice:   "150.00",
+				InsuredPayPrice: "24.0",
 				//Properties: map[string]string{
 				//	"Plan ID": "10802003",
 				//},
 				PpVariant: &xmhsdk.PPVariant{
 					VariantID:   "",
 					Name:        xmhsdk.PPPlanCodeFor1Years,
-					PriceString: "10.00",
+					PriceString: "12.00",
 					Currency:    "USD",
 					Properties: map[string]string{
-						"Reference": "97760109-16ad-40c9-9385-caba381a26aa",
+						"Reference": "16GA5QRB5TO01_110",
 						"Plan ID":   xmhsdk.PPPlanCodeFor1Years,
-						"Product":   "Durable Concrete Shirt",
+						"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
 					},
 				},
 			}},
@@ -164,8 +167,9 @@ func TestPpOrder(t *testing.T) {
 }
 
 func TestPpOrders(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -247,8 +251,9 @@ func TestPpOrders(t *testing.T) {
 }
 
 func TestMutiOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -354,8 +359,9 @@ func TestMutiOrder(t *testing.T) {
 }
 
 func TestOrderWithShip(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
@@ -464,8 +470,9 @@ func TestOrderWithShip(t *testing.T) {
 }
 
 func TestZeroAmountSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
@@ -550,8 +557,9 @@ func TestZeroAmountSpOrder(t *testing.T) {
 }
 
 func TestFullOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	x := &xmhsdk.CancelOrderParam{

@@ -4,10 +4,22 @@ import xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 
 var claimItemsQueryUrl = "ClaimItemsQuery"
 var claimUrl = "ClaimReport"
+var serviceClaimItemsQueryUrl = "ServiceClaimItemQuery"
+var claimQueryUrl = "ClaimQuery"
 
 func ClaimItemsQuery(params *xmhsdk.ClaimItemsQueryParam) (*xmhsdk.ClaimItems, error) {
 	result := &xmhsdk.ClaimItems{}
 	err := xmhsdk.MakeRequest(claimItemsQueryUrl, params, result)
+	if err != nil {
+		xmhsdk.Logger.Errorf("ClaimItemsQuery error: %v", err)
+		return nil, err
+	}
+	return result, nil
+}
+
+func ServiceClaimItemsQuery(params *xmhsdk.ServiceClaimItemsQueryParam) (*xmhsdk.ClaimItems, error) {
+	result := &xmhsdk.ClaimItems{}
+	err := xmhsdk.MakeRequest(serviceClaimItemsQueryUrl, params, result)
 	if err != nil {
 		xmhsdk.Logger.Errorf("ClaimItemsQuery error: %v", err)
 		return nil, err
@@ -20,6 +32,16 @@ func ClaimReport(params *xmhsdk.OpenApiClaimReport) (*xmhsdk.OpenApiClaimReportR
 	err := xmhsdk.MakeRequest(claimUrl, params, result)
 	if err != nil {
 		xmhsdk.Logger.Errorf("ClaimReport error: %v", err)
+		return nil, err
+	}
+	return result, nil
+}
+
+func ClaimQuery(params *xmhsdk.ClaimQueryParam) (*xmhsdk.ClaimItems, error) {
+	result := &xmhsdk.ClaimItems{}
+	err := xmhsdk.MakeRequest(claimQueryUrl, params, result)
+	if err != nil {
+		xmhsdk.Logger.Errorf("ClaimItemsQuery error: %v", err)
 		return nil, err
 	}
 	return result, nil

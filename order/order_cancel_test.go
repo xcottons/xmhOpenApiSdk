@@ -26,8 +26,9 @@ func TestTestCancelSpServiceOrder(t *testing.T) {
 }
 
 func TestCancelPpServiceOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	param := &xmhsdk.CancelServiceOrderParam{
@@ -43,8 +44,9 @@ func TestCancelPpServiceOrder(t *testing.T) {
 }
 
 func TestPartialCancelPpServiceOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	param := &xmhsdk.CancelServiceOrderParam{
@@ -78,8 +80,9 @@ func TestPartialCancelPpServiceOrder(t *testing.T) {
 }
 
 func TestPartialCancelMutilPpServiceOrder(t *testing.T) {
-	xmhsdk.AppId = "1000161"
-	xmhsdk.AppSecret = "1WWyTSmQwCLWSFRt1WIEWbAmutfe4nbc"
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	p1 := &xmhsdk.DItem{
