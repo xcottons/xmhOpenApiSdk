@@ -74,6 +74,7 @@ func TestClaimReport(t *testing.T) {
 		ClaimReportTime:    time.Now().Format(time.RFC3339),
 		LossOccurrenceTime: time.Now().Format(time.RFC3339),
 		Describe:           "some describe",
+		Claimpayout:        "100",
 	}
 	result, err := ClaimReport(params)
 	if err != nil {

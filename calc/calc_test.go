@@ -42,8 +42,10 @@ func TestPpCalc(t *testing.T) {
 		BuyerIP:                  "113.89.35.162",
 		IsShippingProtectionOpen: true,
 		OrderInfo: &xmhsdk.DOrder{
-			TotalPayPrice: "150.00",
-			Currency:      "USD",
+			TotalPayPrice:     "150.00",
+			Currency:          "USD",
+			PreferentialPrice: "0.0",
+			TotalPrice:        "0.0",
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
 				SkuId:             "SKU001",

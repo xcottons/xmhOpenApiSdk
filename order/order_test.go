@@ -122,8 +122,8 @@ func TestPpOrder(t *testing.T) {
 			PayTime:           time.Now().Format(time.RFC3339),
 			PaySn:             time.Now().Format(time.RFC3339),
 			OrderModifyTime:   time.Now().Format(time.RFC3339),
-			//OrderCreateTime:   time.Now().Format(time.RFC3339),
-			OrderCreateTime: "2025-04-07T05:37:10.000Z",
+			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			//OrderCreateTime: "2025-04-07T05:37:10.000Z",
 			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
 				ReceiverShipAddress: &xmhsdk.ShipAddress{
 					Country:  "CN",
@@ -137,7 +137,7 @@ func TestPpOrder(t *testing.T) {
 				ItemName:     "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
 				Currency:     "USD",
 				//UnitPrice:         "100.00",
-				UnitNum: "2",
+				UnitNum: "1",
 				//TotalPrice:        "200.00",
 				//PreferentialPrice: "50.00",
 				TotalPayPrice:   "150.00",

@@ -9,40 +9,44 @@ import (
 )
 
 func TestShipSpOrder(t *testing.T) {
-	xmhsdk.AppId = "1000168"
-	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	xmhsdk.SignSecret = "vevor-alpha"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1600132"
+	xmhsdk.AppSecret = "Nvc9ed9VvxUYQSv0vxhWINlhzBOLlKbq"
+	xmhsdk.SignSecret = "vevor_beta"
+	xmhsdk.SetEnv(xmhsdk.EnvIdc)
 	auth.New()
 	params := &xmhsdk.ShipParam{
-		OrderId: "1744082334",
+		OrderId: "6063004188893",
 		//SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
 				ShipId:          strconv.Itoa(int(time.Now().Unix())),
-				ShipCompanyCode: "SF",
-				ShipCompany:     "SF",
+				ShipCompanyCode: "ups",
+				ShipCompany:     "ups",
 				ShipTrackNumber: strconv.Itoa(int(time.Now().Unix())),
 				ShipStateString: "已发货",
 				ShipPrice:       "6.00",
 				//ActualShipSendTime: time.Now().Format(time.RFC3339),
-				ActualShipSendTime: "2025-04-07T05:37:10.000Z",
+				ActualShipSendTime: "2025-04-11T05:37:10.000Z",
 				ShipOtherInfo: &xmhsdk.ShipAddress{
-					Country:     "中国",
-					Province:    "浙江省",
-					City:        "杭州市",
-					CountryCode: "CN",
+					Country:    "United States",
+					CityCode:   "US",
+					Province:   "New Jersey",
+					PostalCode: "NJ",
+					City:       "Union City",
+					//CountryCode: "CN",
 				},
 				ItemList: []*xmhsdk.DItem{{
-					ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
-					SkuId:             "SKU001",
-					ItemName:          "Durable Concrete Shirt",
+					ProductId:         "8629274771677",
+					VariantId:         "45267420152029",
+					ItemId:            "14659209691357",
+					SkuId:             "L024+L073+T075GBB1+L083GBB1+L081GBB1+L059GBB1+L050GBB1",
+					ItemName:          "Ulanzi 40W Portable LED Video Light Bundle - L024 40W RGB Light Bundle / US Plu",
 					Currency:          "USD",
-					UnitPrice:         "100.00",
-					UnitNum:           "2",
-					TotalPrice:        "200.00",
-					PreferentialPrice: "50.00",
-					TotalPayPrice:     "150.00",
+					UnitPrice:         "229.95",
+					UnitNum:           "1",
+					TotalPrice:        "202.36",
+					PreferentialPrice: "27.59",
+					TotalPayPrice:     "202.36",
 				}},
 			},
 		},
