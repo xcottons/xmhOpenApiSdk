@@ -16,15 +16,19 @@ import (
 type EnvMark int
 
 const (
-	EnvIdc   = EnvMark(200)
-	EnvBeta  = EnvMark(600)
-	EnvAlpha = EnvMark(500)
-	EnvLocal = EnvMark(100)
+	EnvIdc    = EnvMark(200)
+	EnvEuIdc  = EnvMark(0)
+	EnvEuBeta = EnvMark(1500)
+	EnvBeta   = EnvMark(600)
+	EnvAlpha  = EnvMark(500)
+	EnvLocal  = EnvMark(100)
 )
 
 var (
 	AlphaBaseUrl    string = "https://alphaxcottons.xinhulu.com"
+	EuBetaBaseUrl   string = "https://xmheubetasellers.xinhulu.com"
 	BetaBaseUrl     string = "https://betaxcottons.xinhulu.com"
+	EuIdcBaseUrl    string = ""
 	IdcBaseUrl      string = "https://seller.xcottons.com"
 	LocalBaseUrl    string = ""
 	SignSecretIdc   string = "ex_xmh_idc"
@@ -68,6 +72,10 @@ func SetEnv(env EnvMark) {
 		GetClient().baseUrl = IdcBaseUrl
 	case EnvBeta:
 		GetClient().baseUrl = BetaBaseUrl
+	case EnvEuBeta:
+		GetClient().baseUrl = EuBetaBaseUrl
+	case EnvEuIdc:
+		GetClient().baseUrl = EuIdcBaseUrl
 	}
 }
 func GetBaseurl() string {
@@ -76,6 +84,10 @@ func GetBaseurl() string {
 		return IdcBaseUrl
 	case EnvBeta:
 		return BetaBaseUrl
+	case EnvEuIdc:
+		return EuIdcBaseUrl
+	case EnvEuBeta:
+		return EuBetaBaseUrl
 	case EnvAlpha:
 		return AlphaBaseUrl
 	default:
