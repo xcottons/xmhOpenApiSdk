@@ -14,7 +14,7 @@ func TestClaimItemsQuery(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ClaimItemsQueryParam{
-		OrderID:            "1744182466",
+		OrderID:            "1746607152",
 		ClaimInsuranceType: 4,
 	}
 	result, err := ClaimItemsQuery(params)
@@ -32,7 +32,7 @@ func TestServiceClaimItemsQuery(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ServiceClaimItemsQueryParam{
-		ServiceOrderId: "20250407XPP11676136C5565",
+		ServiceOrderId: "20250507XPP11676136D0565",
 	}
 	result, err := ServiceClaimItemsQuery(params)
 	if err != nil {
@@ -49,16 +49,15 @@ func TestClaimReport(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.OpenApiClaimReport{
-		ServiceOrderId: "20250407XPP11676136C6665",
+		ServiceOrderId: "20250508XPP11676136D0C65",
 		ClaimItems: []*xmhsdk.OpenApiClaimItem{{
-			ItemId:          "16GA5QRB5TO01_110",
-			ItemName:        "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
-			PriceCurrency:   "USD",
-			ItemNum:         1,
-			ItemUnitPrice:   "100.00",
-			ItemSumPrice:    "200.00",
-			ClaimApplyMoney: "100",
-			PlanId:          xmhsdk.PPPlanCodeFor1Years,
+			ItemId:        "16GA5QRB5TO01_110",
+			ItemName:      "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+			PriceCurrency: "USD",
+			ItemNum:       2,
+			//ItemUnitPrice:   "100.00",
+			//ItemSumPrice:    "200.00",
+			Claimpayout: "1000",
 		}},
 		ClaimType:       1,
 		FileLinks:       []string{"https://example.com"},
@@ -74,7 +73,6 @@ func TestClaimReport(t *testing.T) {
 		ClaimReportTime:    time.Now().Format(time.RFC3339),
 		LossOccurrenceTime: time.Now().Format(time.RFC3339),
 		Describe:           "some describe",
-		Claimpayout:        "100",
 	}
 	result, err := ClaimReport(params)
 	if err != nil {

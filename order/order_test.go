@@ -133,11 +133,37 @@ func TestPpOrder(t *testing.T) {
 			ItemList: []*xmhsdk.DItem{{
 				ItemId: "16GA5QRB5TO01_110",
 				//SkuId:             "SKU001",
-				OrderGoodsId: "16GA5QRB5TO01_110",
+				OrderGoodsId: strconv.Itoa(int(time.Now().UnixNano()) + 3),
 				ItemName:     "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
 				Currency:     "USD",
 				//UnitPrice:         "100.00",
-				UnitNum: "1",
+				UnitNum: "3",
+				//TotalPrice:        "200.00",
+				//PreferentialPrice: "50.00",
+				TotalPayPrice:   "150.00",
+				InsuredPayPrice: "24.0",
+				//Properties: map[string]string{
+				//	"Plan ID": "10802003",
+				//},
+				PpVariant: &xmhsdk.PPVariant{
+					VariantID:   "",
+					Name:        xmhsdk.PPPlanCodeFor1Years,
+					PriceString: "12.00",
+					Currency:    "USD",
+					Properties: map[string]string{
+						"Reference": "16GA5QRB5TO01_110",
+						"Plan ID":   xmhsdk.PPPlanCodeFor1Years,
+						"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+					},
+				},
+			}, {
+				ItemId: "16GA5QRB5TO01_110",
+				//SkuId:             "SKU001",
+				OrderGoodsId: strconv.Itoa(int(time.Now().UnixNano()) + 5),
+				ItemName:     "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				Currency:     "USD",
+				//UnitPrice:         "100.00",
+				UnitNum: "2",
 				//TotalPrice:        "200.00",
 				//PreferentialPrice: "50.00",
 				TotalPayPrice:   "150.00",
@@ -579,4 +605,97 @@ func TestFullOrder(t *testing.T) {
 	}
 	t.Logf("pr result: %s", xmhsdk.ToStr(cancel))
 
+}
+
+func TestPpOrderBeta(t *testing.T) {
+	xmhsdk.AppId = "1000170"
+	xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
+	xmhsdk.SignSecret = "vevor_beta"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	auth.New()
+	params := &xmhsdk.PlatformOrderParam{
+		UserEmail: "wejnoospkonr@hldrive.com",
+		UserId:    "VIPER3",
+		OrderInfo: &xmhsdk.DOrder{
+			OrderId:           strconv.Itoa(int(time.Now().Unix())),
+			SubOrderId:        "SubOrderId6",
+			TotalPayPrice:     "303.00",
+			TotalPrice:        "303.00",
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_PAID,
+			InsuredPayPrice:   "0",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           time.Now().Format(time.RFC3339),
+			PaySn:             time.Now().Format(time.RFC3339),
+			OrderModifyTime:   time.Now().Format(time.RFC3339),
+			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			//OrderCreateTime: "2025-04-07T05:37:10.000Z",
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "CN",
+					CityCode: "CN",
+				},
+			},
+			ItemList: []*xmhsdk.DItem{{
+				ItemId: "VEVOR_US_1.5KWTSSGJ0000001V1",
+				//SkuId:             "SKU001",
+				OrderGoodsId: "7316476058016931840",
+				ItemName:     "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				Currency:     "USD",
+				//UnitPrice:         "100.00",
+				UnitNum: "1",
+				//TotalPrice:        "200.00",
+				//PreferentialPrice: "50.00",
+				TotalPayPrice:   "150.00",
+				InsuredPayPrice: "24.0",
+				//Properties: map[string]string{
+				//	"Plan ID": "10802003",
+				//},
+				PpVariant: &xmhsdk.PPVariant{
+					VariantID:   "",
+					Name:        xmhsdk.PPPlanCodeFor1Years,
+					PriceString: "12.00",
+					Currency:    "USD",
+					Properties: map[string]string{
+						"Reference": "VEVOR_US_1.5KWTSSGJ0000001V1",
+						"Plan ID":   xmhsdk.PPPlanCodeFor1Years,
+						"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+					},
+				},
+			}, {
+				ItemId: "VEVOR_US_1.5KWTSSGJ0000001V1",
+				//SkuId:             "SKU001",
+				OrderGoodsId: "7316476058016931841",
+				ItemName:     "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				Currency:     "USD",
+				//UnitPrice:         "100.00",
+				UnitNum: "1",
+				//TotalPrice:        "200.00",
+				//PreferentialPrice: "50.00",
+				TotalPayPrice:   "150.00",
+				InsuredPayPrice: "24.0",
+				//Properties: map[string]string{
+				//	"Plan ID": "10802003",
+				//},
+				PpVariant: &xmhsdk.PPVariant{
+					VariantID:   "",
+					Name:        xmhsdk.PPPlanCodeFor1Years,
+					PriceString: "12.00",
+					Currency:    "USD",
+					Properties: map[string]string{
+						"Reference": "VEVOR_US_1.5KWTSSGJ0000001V1",
+						"Plan ID":   xmhsdk.PPPlanCodeFor1Years,
+						"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+					},
+				},
+			}},
+		},
+	}
+	pr, err := New(params)
+	if err != nil {
+		t.Errorf("pr error: %s", xmhsdk.ToStr(err))
+	}
+	t.Logf("pr result: %s", xmhsdk.ToStr(pr))
 }

@@ -12,7 +12,6 @@ type OpenApiClaimReport struct {
 	ClaimReportTime    string              `json:"claimReportTime"`
 	LossOccurrenceTime string              `json:"lossOccurrenceTime"`
 	Describe           string              `json:"describe"`
-	Claimpayout        string              `json:"claimpayout"`
 }
 
 type AccountInfo struct {
@@ -54,6 +53,7 @@ type OpenApiClaimItem struct {
 	ClaimType        int32  `json:"claimType"`
 	ClaimState       int32  `json:"claimState"`
 	XmhServiceId     string `json:"xmhServiceId"`
+	Claimpayout      string `json:"claimpayout"`
 }
 
 type ClaimQueryParam struct {
