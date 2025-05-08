@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"time"
 )
 
 type EnvMark int
@@ -170,6 +171,7 @@ func GetClient() *SdkClient {
 		client = &SdkClient{
 			baseUrl: GetBaseurl(),
 		}
+		client.Timeout = time.Second * 12
 	})
 	return client
 }
