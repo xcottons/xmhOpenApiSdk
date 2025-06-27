@@ -83,13 +83,14 @@ func TestClaimReport(t *testing.T) {
 }
 
 func TestClaimQuery(t *testing.T) {
-	xmhsdk.AppId = "1000168"
-	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	xmhsdk.SignSecret = "vevor-alpha"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1000170"
+	xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
+	xmhsdk.SignSecret = "vevor_beta"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.ClaimQueryParam{
-		ServiceOrderId: "20250407XPP11676136C6665",
+		ServiceOrderId: "20250512XPP83015372CC36",
+		ClaimId:        "claim-00232360000000000117700236",
 	}
 	result, err := ClaimQuery(params)
 	if err != nil {

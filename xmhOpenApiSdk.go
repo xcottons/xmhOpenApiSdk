@@ -18,7 +18,7 @@ type EnvMark int
 
 const (
 	EnvIdc    = EnvMark(200)
-	EnvEuIdc  = EnvMark(0)
+	EnvEuIdc  = EnvMark(1600)
 	EnvEuBeta = EnvMark(1500)
 	EnvBeta   = EnvMark(600)
 	EnvAlpha  = EnvMark(500)
@@ -29,7 +29,7 @@ var (
 	AlphaBaseUrl    string = "https://alphaxcottons.xinhulu.com"
 	EuBetaBaseUrl   string = "https://xmheubetasellers.xinhulu.com"
 	BetaBaseUrl     string = "https://betaxcottons.xinhulu.com"
-	EuIdcBaseUrl    string = ""
+	EuIdcBaseUrl    string = "https://seller-eu.xcottons.com"
 	IdcBaseUrl      string = "https://seller.xcottons.com"
 	LocalBaseUrl    string = ""
 	SignSecretIdc   string = "ex_xmh_idc"
