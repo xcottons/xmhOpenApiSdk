@@ -25,7 +25,7 @@ func TestSpOrder(t *testing.T) {
 			TotalPrice:        "0.00",
 			Currency:          "USD",
 			OrderState:        xmhsdk.OERDER_STATE_PAID,
-			InsuredPayPrice:   "0.00",
+			InsuredPayPrice:   "10.00",
 			TaxPrice:          "0.00",
 			ShipPrice:         "0.00",
 			PreferentialPrice: "0.00",

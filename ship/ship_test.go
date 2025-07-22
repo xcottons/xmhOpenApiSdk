@@ -15,18 +15,18 @@ func TestShipSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ShipParam{
-		OrderId: "1750931659",
+		OrderId: "1753151220",
 		//SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
-				ShipId:          strconv.Itoa(int(time.Now().Unix())),
-				ShipCompanyCode: "ups",
-				ShipCompany:     "ups",
-				ShipTrackNumber: strconv.Itoa(int(time.Now().Unix())),
-				ShipStateString: "已发货",
-				ShipPrice:       "6.00",
-				//ActualShipSendTime: time.Now().Format(time.RFC3339),
-				ActualShipSendTime: "2025-04-11T05:37:10.000Z",
+				ShipId:             strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode:    "ups",
+				ShipCompany:        "ups",
+				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+				ShipStateString:    "已发货",
+				ShipPrice:          "6.00",
+				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				//ActualShipSendTime: "2025-04-11T05:37:10.000Z",
 				ShipOtherInfo: &xmhsdk.ShipAddress{
 					Country:    "United States",
 					CityCode:   "US",
