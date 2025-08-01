@@ -3,6 +3,7 @@ package ship
 import (
 	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
+	"math/rand"
 	"strconv"
 	"testing"
 	"time"
@@ -15,7 +16,7 @@ func TestShipSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ShipParam{
-		OrderId: "1753151220",
+		OrderId: "1754034348",
 		//SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
@@ -77,16 +78,30 @@ func TestShipPpOrder(t *testing.T) {
 		TotalPayPrice:     "150.00",
 		InsuredPayPrice:   "24.0",
 	}
+	item1 := &xmhsdk.DItem{
+		ItemId: "16GA5QRB5TO01_110567",
+		//SkuId:             "SKU001",
+		OrderGoodsId:      "16GA5QRB5TO01_110",
+		ItemName:          "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+		Currency:          "USD",
+		UnitPrice:         "100.00",
+		UnitNum:           "2",
+		TotalPrice:        "200.00",
+		PreferentialPrice: "50.00",
+		TotalPayPrice:     "150.00",
+		InsuredPayPrice:   "24.0",
+	}
+	intn := rand.New(rand.NewSource(time.Now().Unix()))
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1750935080",
+		OrderId:    "1754034348",
 		SubOrderId: "SubOrderId6",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
-				ShipId:             strconv.Itoa(int(time.Now().Unix())),
+				ShipId:             strconv.Itoa(int(time.Now().Unix()) + intn.Int()),
 				ShipCompanyCode:    "SF",
 				ShipCompany:        "SF",
-				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix()) + intn.Int()),
 				ShipStateString:    "已发货",
 				ShipPrice:          "6.00",
 				ActualShipSendTime: time.Now().Format(time.RFC3339),
@@ -97,6 +112,22 @@ func TestShipPpOrder(t *testing.T) {
 					//City:     "杭州市",
 				},
 				ItemList: []*xmhsdk.DItem{item},
+			},
+			{
+				ShipId:             strconv.Itoa(int(time.Now().Unix()) + intn.Int()),
+				ShipCompanyCode:    "SF",
+				ShipCompany:        "SF",
+				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix()) + intn.Int()),
+				ShipStateString:    "已发货",
+				ShipPrice:          "6.00",
+				ActualShipSendTime: time.Now().Format(time.RFC3339),
+				//ActualShipSendTime: time.Date(2024, 2, 29, 11, 11, 11, 11, time.Local).Format(time.RFC3339),
+				ShipOtherInfo: &xmhsdk.ShipAddress{
+					Country:  "中国",
+					Province: "浙江省",
+					//City:     "杭州市",
+				},
+				ItemList: []*xmhsdk.DItem{item1},
 			},
 		},
 	}

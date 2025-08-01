@@ -122,6 +122,7 @@ type CancelServiceOrderItem struct {
 	CancelFee      string   `json:"cancelFee,omitempty"`
 	Currency       string   `json:"currency,omitempty"`
 	CancelItems    []*DItem `json:"cancelItems,omitempty"`
+	CancelTime     string   `json:"cancelTime,omitempty"`
 }
 type InsuredOrderParam struct {
 	UserId            string  `json:"userId" validate:"required"`
