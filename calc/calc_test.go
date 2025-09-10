@@ -19,8 +19,10 @@ func TestSpCalc(t *testing.T) {
 		CartToken:                "11111111122222222222222223333333333jjjjjjjjjaaaaaaaa",
 		IsShippingProtectionOpen: true,
 		OrderInfo: &xmhsdk.DOrder{
-			TotalPayPrice: "100.00",
-			Currency:      "USD",
+			TotalPayPrice:     "130000",
+			TotalPrice:        "130000",
+			PreferentialPrice: "0",
+			Currency:          "JPY",
 		},
 	}
 	calc, err := Calc(params)
@@ -56,16 +58,6 @@ func TestPpCalc(t *testing.T) {
 				TotalPrice:        "200.00",
 				PreferentialPrice: "50.00",
 				TotalPayPrice:     "150.00",
-			}, {
-				ItemId:            "666666",
-				SkuId:             "SKU002",
-				ItemName:          "Durable Concrete Shirt",
-				Currency:          "USD",
-				UnitPrice:         "100.00",
-				UnitNum:           "2",
-				TotalPrice:        "200.00",
-				PreferentialPrice: "50.00",
-				TotalPayPrice:     "150.00",
 			}},
 		},
 	}
@@ -77,32 +69,25 @@ func TestPpCalc(t *testing.T) {
 }
 
 func TestOnlyPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000168"
-	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	xmhsdk.SignSecret = "vevor-alpha"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1000206"
+	xmhsdk.AppSecret = "lsL6aOxZJ7qFhsp0wGcXcdzVJEvcdPjP"
+	xmhsdk.SignSecret = "huion-beta"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.PpCalcParams{
 		ItemList: []*xmhsdk.DItem{{
-			ItemId: "16GA5QRB5TO01_110",
-			//SkuId:             "SKU001",
-			ItemName:          "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
-			Currency:          "USD",
-			UnitPrice:         "100.00",
-			UnitNum:           "2",
-			TotalPrice:        "200.00",
-			PreferentialPrice: "50.00",
-			TotalPayPrice:     "150.00",
-		}, {
-			ItemId:            "666666",
-			SkuId:             "SKU002",
-			ItemName:          "Durable Concrete Shirt",
-			Currency:          "USD",
-			UnitPrice:         "100.00",
-			UnitNum:           "2",
-			TotalPrice:        "200.00",
-			PreferentialPrice: "50.00",
-			TotalPayPrice:     "150.00",
+			ItemId:    "P00000041",
+			SkuId:     "P0000004100",
+			VariantId: "P0000004100",
+			//OrderGoodsId: strconv.Itoa(int(time.Now().UnixNano()) + 5),
+			ItemName: "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+			Currency: "USD",
+			//UnitPrice:         "100.00",
+			UnitNum: "2",
+			//TotalPrice:        "200.00",
+			//PreferentialPrice: "50.00",
+			TotalPayPrice:   "150.00",
+			InsuredPayPrice: "24.0",
 		}},
 	}
 	calc, err := PpCalc(params)
