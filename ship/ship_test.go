@@ -1,12 +1,16 @@
 package ship
 
 import (
-	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
-	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
+	"encoding/json"
+	"fmt"
 	"math/rand"
+	"os"
 	"strconv"
 	"testing"
 	"time"
+
+	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
+	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
 )
 
 func TestShipSpOrder(t *testing.T) {
@@ -271,17 +275,17 @@ func TestShipWithShipTime(t *testing.T) {
 					PreferentialPrice: "50.00",
 					TotalPayPrice:     "150.00",
 				}, p1.AddOneYearPp("10.00"), p2.AddTwoYearPp("10.00"), p3.AddThreeYearPp("10.00"),
-					//{
-					//	ItemId:            "666666",
-					//	SkuId:             "SKU002",
-					//	ItemName:          "Durable Concrete Shirt",
-					//	Currency:          "USD",
-					//	UnitPrice:         "100.00",
-					//	UnitNum:           "2",
-					//	TotalPrice:        "200.00",
-					//	PreferentialPrice: "50.00",
-					//	TotalPayPrice:     "150.00",
-					//}
+				//{
+				//	ItemId:            "666666",
+				//	SkuId:             "SKU002",
+				//	ItemName:          "Durable Concrete Shirt",
+				//	Currency:          "USD",
+				//	UnitPrice:         "100.00",
+				//	UnitNum:           "2",
+				//	TotalPrice:        "200.00",
+				//	PreferentialPrice: "50.00",
+				//	TotalPayPrice:     "150.00",
+				//}
 				},
 			},
 		},
@@ -605,4 +609,56 @@ func TestEuShipPpOrder(t *testing.T) {
 	}
 	t.Logf("Ship result: %v", result)
 
+}
+
+func TestBatch(t *testing.T) {
+	xmhsdk.AppId = "1600398"
+	xmhsdk.AppSecret = "BTnKVWMdYgE37yyB3C2cU65WyyZXsEWR"
+	xmhsdk.SignSecret = "vevor-idc"
+	xmhsdk.SetEnv(xmhsdk.EnvIdc)
+	auth.New()
+	type OpenApiOrderShip struct {
+		OrderSN               string `json:"order_sn"`
+		LogisticsSN           string `json:"logistics_sn"`
+		LogisticsBusinessCode string `json:"logistics_business_code"`
+		DeliveryTimeBj        string `json:"delivery_time_bj"`
+	}
+
+	bytes, rErr := os.ReadFile("./output.json")
+	if rErr != nil {
+		xmhsdk.Logger.Errorf("read json file:%s", rErr.Error())
+		return
+	}
+	var orderShips []OpenApiOrderShip
+	uErr := json.Unmarshal(bytes, &orderShips)
+	if uErr != nil {
+		xmhsdk.Logger.Errorf("decode json data:%s", uErr.Error())
+		return
+	}
+	for i, orderShip := range orderShips {
+		beijingLoc, _ := time.LoadLocation("Asia/Shanghai")
+		parse, dErr := time.ParseInLocation(time.DateTime, orderShip.DeliveryTimeBj, beijingLoc)
+		if dErr != nil {
+			xmhsdk.Logger.Errorf("parse time error:%s", dErr.Error())
+			return
+		}
+		_, sErr := New(&xmhsdk.ShipParam{
+			OrderId:    orderShip.OrderSN,
+			SubOrderId: orderShip.OrderSN,
+			ShipInfoList: []*xmhsdk.ShipInfo{
+				{
+					ShipId:             fmt.Sprintf("%v", orderShip.LogisticsSN),
+					ActualShipSendTime: parse.Format(time.RFC3339),
+					ShipTrackNumber:    orderShip.LogisticsSN,
+					ShipCompany:        orderShip.LogisticsBusinessCode,
+					ShipCompanyCode:    orderShip.LogisticsBusinessCode,
+					ItemList:           []*xmhsdk.DItem{{}},
+				},
+			},
+		})
+		if sErr != nil {
+			xmhsdk.Logger.Errorf("ship idx:%d error %s", i, sErr.Error())
+			return
+		}
+	}
 }
