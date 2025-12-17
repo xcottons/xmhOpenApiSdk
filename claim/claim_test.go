@@ -1,10 +1,11 @@
 package claim
 
 import (
-	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
-	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
 	"testing"
 	"time"
+
+	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
+	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
 )
 
 func TestClaimItemsQuery(t *testing.T) {
@@ -89,8 +90,8 @@ func TestClaimQuery(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.ClaimQueryParam{
-		ServiceOrderId: "20250512XPP83015372CC36",
-		ClaimId:        "claim-00232360000000000117700236",
+		ServiceOrderId: "20251212XSP83015378DC36",
+		ClaimId:        "claim-00232360000000000117705236",
 	}
 	result, err := ClaimQuery(params)
 	if err != nil {

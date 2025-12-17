@@ -20,18 +20,20 @@ func TestShipSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ShipParam{
-		OrderId: "1754034348",
-		//SubOrderId: "SubOrderId6",
+		OrderId:    "23992",
+		SubOrderId: "",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
-				ShipId:             strconv.Itoa(int(time.Now().Unix())),
-				ShipCompanyCode:    "ups",
-				ShipCompany:        "ups",
-				ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
-				ShipStateString:    "已发货",
-				ShipPrice:          "6.00",
-				ActualShipSendTime: time.Now().Format(time.RFC3339),
-				//ActualShipSendTime: "2025-04-11T05:37:10.000Z",
+				ShipId:          strconv.Itoa(int(time.Now().Unix())),
+				ShipCompanyCode: "ups",
+				ShipCompany:     "ups",
+				//ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+				ShipTrackNumber: "YT2529200702482310",
+
+				ShipStateString: "已发货",
+				ShipPrice:       "0.00",
+				//ActualShipSendTime: time.Now().Format(time.RFC3339),
+				ActualShipSendTime: "2025-10-19T14:03:12+08:00",
 				ShipOtherInfo: &xmhsdk.ShipAddress{
 					Country:    "United States",
 					CityCode:   "US",
@@ -41,15 +43,17 @@ func TestShipSpOrder(t *testing.T) {
 					//CountryCode: "CN",
 				},
 				ItemList: []*xmhsdk.DItem{{
-					ItemId:    "97760109-16ad-40c9-9385-caba381a26aa",
-					SkuId:     "SKU001",
+					ItemId:    "264801",
+					SkuId:     "1134002",
+					VariantId: "264801",
+					//OrderGoodsId: "2e7677be-21ba-473c-bed8-a9e73a610902",
 					ItemName:  "Durable Concrete Shirt",
 					Currency:  "USD",
 					UnitPrice: "0",
-					UnitNum:   "2",
+					UnitNum:   "1",
 					//TotalPrice:        "0",
 					//PreferentialPrice: "0",
-					TotalPayPrice: "150.00",
+					TotalPayPrice: "0",
 				}},
 			},
 		},
@@ -98,8 +102,8 @@ func TestShipPpOrder(t *testing.T) {
 	intn := rand.New(rand.NewSource(time.Now().Unix()))
 
 	params := &xmhsdk.ShipParam{
-		OrderId:    "1754034348",
-		SubOrderId: "SubOrderId6",
+		OrderId:    "1765253675",
+		SubOrderId: "",
 		ShipInfoList: []*xmhsdk.ShipInfo{
 			{
 				ShipId:             strconv.Itoa(int(time.Now().Unix()) + intn.Int()),

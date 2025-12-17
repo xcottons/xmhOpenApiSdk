@@ -1,16 +1,17 @@
 package calc
 
 import (
+	"testing"
+
 	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
-	"testing"
 )
 
 func TestSpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000168"
-	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	xmhsdk.SignSecret = "vevor-alpha"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1000206"
+	xmhsdk.AppSecret = "lsL6aOxZJ7qFhsp0wGcXcdzVJEvcdPjP"
+	xmhsdk.SignSecret = "huion-beta"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
@@ -19,10 +20,10 @@ func TestSpCalc(t *testing.T) {
 		CartToken:                "11111111122222222222222223333333333jjjjjjjjjaaaaaaaa",
 		IsShippingProtectionOpen: true,
 		OrderInfo: &xmhsdk.DOrder{
-			TotalPayPrice:     "130000",
-			TotalPrice:        "130000",
+			TotalPayPrice:     "13",
+			TotalPrice:        "13",
 			PreferentialPrice: "0",
-			Currency:          "JPY",
+			Currency:          "AUD",
 		},
 	}
 	calc, err := Calc(params)
@@ -33,31 +34,32 @@ func TestSpCalc(t *testing.T) {
 }
 
 func TestPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000168"
-	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	xmhsdk.SignSecret = "vevor-alpha"
-	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	xmhsdk.AppId = "1600562"
+	xmhsdk.AppSecret = "kkxyE9En3ZuwY5lRkhJFEPfDUE3IlCN8"
+	xmhsdk.SignSecret = "crealityfalcon-test"
+	xmhsdk.SetEnv(xmhsdk.EnvIdc)
 	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
 		UserEmail:                "VIPER3@qq.com",
 		BuyerIP:                  "113.89.35.162",
-		IsShippingProtectionOpen: true,
+		IsShippingProtectionOpen: false,
 		OrderInfo: &xmhsdk.DOrder{
 			TotalPayPrice:     "150.00",
 			Currency:          "USD",
 			PreferentialPrice: "0.0",
 			TotalPrice:        "0.0",
 			ItemList: []*xmhsdk.DItem{{
-				ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+				ItemId:            "9640701231402",
 				SkuId:             "SKU001",
 				ItemName:          "Durable Concrete Shirt",
-				Currency:          "USD",
+				Currency:          "JPY",
 				UnitPrice:         "100.00",
 				UnitNum:           "2",
 				TotalPrice:        "200.00",
 				PreferentialPrice: "50.00",
 				TotalPayPrice:     "150.00",
+				//VariantId:         "123",
 			}},
 		},
 	}
