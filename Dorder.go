@@ -75,9 +75,10 @@ type ShipAddress struct {
 	Email        string `json:"email" validate:"omitempty,email"`
 	LinkName     string `json:"linkName"`
 	LinkMobile   string `json:"linkMobile"`
+	ZipCode      string `json:"zipCode"`
 }
 
-//to add ship protection for this order  you should call this method and give the orderTotalPayFee when you sync order to xmh
+// to add ship protection for this order  you should call this method and give the orderTotalPayFee when you sync order to xmh
 func (d *DOrder) AddSp(orderTotalPayFee string) *DOrder {
 	d.InsuredPayPrice = orderTotalPayFee
 	return d

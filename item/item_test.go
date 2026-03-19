@@ -123,7 +123,7 @@ func TestEuSync(t *testing.T) {
 	xmhsdk.AppId = "10001"
 	xmhsdk.AppSecret = "sX6QltIfMJEobQqxsdRFt3w2Jr8jlZaM"
 	xmhsdk.SignSecret = "yujianfx-eu"
-	xmhsdk.SetEnv(xmhsdk.EnvEuBeta)
+	xmhsdk.SetEnv(xmhsdk.EnvUsBeta)
 	auth.New()
 	params := &xmhsdk.ProductItemsParam{
 		RequestId: strconv.Itoa(int(time.Now().Unix())),

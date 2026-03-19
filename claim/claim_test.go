@@ -15,7 +15,7 @@ func TestClaimItemsQuery(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ClaimItemsQueryParam{
-		OrderID:            "1746607152",
+		OrderID:            "1770265268",
 		ClaimInsuranceType: 4,
 	}
 	result, err := ClaimItemsQuery(params)
@@ -33,7 +33,7 @@ func TestServiceClaimItemsQuery(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.ServiceClaimItemsQueryParam{
-		ServiceOrderId: "20250507XPP11676136D0565",
+		ServiceOrderId: "20260205XPP1167613859465",
 	}
 	result, err := ServiceClaimItemsQuery(params)
 	if err != nil {

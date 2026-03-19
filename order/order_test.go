@@ -10,17 +10,17 @@ import (
 )
 
 func TestSpOrder(t *testing.T) {
-	//xmhsdk.AppId = "1000168"
-	//xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	//xmhsdk.SignSecret = "vevor-alpha"
-	//xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	xmhsdk.AppId = "1000170"
-	xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
-	xmhsdk.SignSecret = "vevor_beta"
-	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	//xmhsdk.AppId = "1000170"
+	//xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
+	//xmhsdk.SignSecret = "vevor_beta"
+	//xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "wejnoospkonr@hldrive.com",
+		UserEmail:    "yujianfx@xcotton.cn",
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
@@ -43,6 +43,7 @@ func TestSpOrder(t *testing.T) {
 				ReceiverShipAddress: &xmhsdk.ShipAddress{
 					Country:  "CN",
 					CityCode: "CN",
+					ZipCode:  "10086",
 					//City:     "亚特兰提斯",
 				},
 			},
@@ -113,7 +114,91 @@ func TestPpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "wejnoospkonr@hldrive.com",
+		UserEmail: "yujianfx@xcotton.cn",
+		UserId:    "VIPER3",
+		OrderInfo: &xmhsdk.DOrder{
+			//OrderId: strconv.Itoa(int(time.Now().Unix())),
+			OrderId: "1772696426",
+			//SubOrderId:    "SubOrderId6",
+			TotalPayPrice: "3003.00",
+			Currency:      "USD",
+			OrderState:    xmhsdk.OERDER_STATE_PAID,
+			//InsuredPayPrice:   "10",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           time.Now().Format(time.RFC3339),
+			PaySn:             time.Now().Format(time.RFC3339),
+			OrderModifyTime:   time.Now().Format(time.RFC3339),
+			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			//OrderCreateTime: "2025-04-07T05:37:10.000Z",
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "CN",
+					CityCode: "CN",
+					ZipCode:  "996",
+				},
+			},
+			ItemList: []*xmhsdk.DItem{
+				{
+					ItemId:          "16GA5QRB5TO01_110",
+					ItemName:        "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+					Currency:        "USD",
+					UnitPrice:       "48.00",
+					UnitNum:         "5",
+					TotalPayPrice:   "4500.00",
+					InsuredPayPrice: "20.0",
+					SumInsured:      "1000.00",
+					PpVariant: &xmhsdk.PPVariant{
+						VariantID:   "",
+						Name:        xmhsdk.PPPlanCodeFor3Years,
+						PriceString: "10.00",
+						Currency:    "USD",
+						Properties: map[string]string{
+							"Reference": "16GA5QRB5TO01_110",
+							"Plan ID":   xmhsdk.PPPlanCodeFor2Years,
+							"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+						},
+					},
+				},
+				{
+					ItemId:          "PlatformItemId1112",
+					ItemName:        "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+					Currency:        "USD",
+					UnitPrice:       "48.00",
+					UnitNum:         "5",
+					TotalPayPrice:   "4500.00",
+					InsuredPayPrice: "80.0",
+					SumInsured:      "1000.00",
+					PpVariant: &xmhsdk.PPVariant{
+						VariantID:   "",
+						Name:        xmhsdk.PPPlanCodeFor1Years,
+						PriceString: "20.00",
+						Currency:    "USD",
+						Properties: map[string]string{
+							"Reference": "PlatformItemId1112",
+							"Plan ID":   xmhsdk.PPPlanCodeFor1Years,
+							"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+						},
+					},
+				},
+			},
+		},
+	}
+	pr, err := New(params)
+	if err != nil {
+		t.Errorf("pr error: %s", xmhsdk.ToStr(err))
+	}
+	t.Logf("pr result: %s", xmhsdk.ToStr(pr))
+}
+func TestShopifyPpOrder(t *testing.T) {
+	xmhsdk.AppId = "1000146"
+	xmhsdk.AppSecret = "oOBzwiEPLIx33dvQfbIS5iR0GN94mFv2"
+	xmhsdk.SignSecret = ""
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	auth.New()
+	params := &xmhsdk.PlatformOrderParam{
+		UserEmail: "yujianfx@xcotton.cn",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:       strconv.Itoa(int(time.Now().Unix())),
@@ -135,19 +220,20 @@ func TestPpOrder(t *testing.T) {
 				ReceiverShipAddress: &xmhsdk.ShipAddress{
 					Country:  "CN",
 					CityCode: "CN",
+					ZipCode:  "996",
 				},
 			},
 			ItemList: []*xmhsdk.DItem{{
-				ItemId: "16GA5QRB5TO01_110",
+				ItemId: "7598670512227",
 				//SkuId:             "SKU001",
 				//OrderGoodsId: "16GA5QRB5TO01_110",
-				ItemName:  "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				ItemName:  "The Collection Snowboard: Liquid",
 				Currency:  "USD",
-				UnitPrice: "48.00",
+				UnitPrice: "712.45",
 				UnitNum:   "2",
 				//TotalPrice:        "200.00",
 				//PreferentialPrice: "50.00",
-				TotalPayPrice:   "4500.00",
+				TotalPayPrice:   "1424.90",
 				InsuredPayPrice: "36.0",
 				//Properties: map[string]string{
 				//	"Plan ID": "10802003",
@@ -155,7 +241,7 @@ func TestPpOrder(t *testing.T) {
 				PpVariant: &xmhsdk.PPVariant{
 					VariantID:   "",
 					Name:        xmhsdk.PPPlanCodeFor1Years,
-					PriceString: "12.00",
+					PriceString: "18.00",
 					Currency:    "USD",
 					Properties: map[string]string{
 						"Reference": "16GA5QRB5TO01_110",
@@ -215,7 +301,7 @@ func TestPpOrders(t *testing.T) {
 	//	TotalPayPrice:     "150.00",
 	//}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "wejnoospkonr@hldrive.com",
+		UserEmail: "yujianfx@xcotton.cn",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -300,7 +386,7 @@ func TestMutiOrder(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "wejnoospkonr@hldrive.com",
+		UserEmail: "yujianfx@xcotton.cn",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -408,7 +494,7 @@ func TestOrderWithShip(t *testing.T) {
 		TotalPayPrice:     "150.00",
 	}
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "wejnoospkonr@hldrive.com",
+		UserEmail:    "yujianfx@xcotton.cn",
 		DisComputeId: "xcp-00222580000000000508829558",
 		UserId:       "xcp-VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
@@ -484,7 +570,7 @@ func TestZeroAmountSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "wejnoospkonr@hldrive.com",
+		UserEmail:    "yujianfx@xcotton.cn",
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
@@ -596,7 +682,7 @@ func TestPpOrderBeta(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "wejnoospkonr@hldrive.com",
+		UserEmail: "yujianfx@xcotton.cn",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -686,10 +772,10 @@ func TestEuSpOrder(t *testing.T) {
 	xmhsdk.AppId = "10001"
 	xmhsdk.AppSecret = "sX6QltIfMJEobQqxsdRFt3w2Jr8jlZaM"
 	xmhsdk.SignSecret = "yujianfx-eu"
-	xmhsdk.SetEnv(xmhsdk.EnvEuBeta)
+	xmhsdk.SetEnv(xmhsdk.EnvUsBeta)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "wejnoospkonr@hldrive.com",
+		UserEmail:    "yujianfx@xcotton.cn",
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
@@ -780,7 +866,7 @@ func TestEuPpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "wejnoospkonr@hldrive.com",
+		UserEmail: "yujianfx@xcotton.cn",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
@@ -857,6 +943,174 @@ func TestEuPpOrder(t *testing.T) {
 					},
 				},
 			}},
+		},
+	}
+	pr, err := New(params)
+	if err != nil {
+		t.Errorf("pr error: %s", xmhsdk.ToStr(err))
+	}
+	t.Logf("pr result: %s", xmhsdk.ToStr(pr))
+}
+
+func TestUsBetaSpOrder(t *testing.T) {
+	xmhsdk.AppId = "1000160"
+	xmhsdk.AppSecret = "xzs6We8YcKdpHrGQn8XHpyGCNg0a7sd7"
+	xmhsdk.SignSecret = "ex_xmh_test"
+	xmhsdk.SetEnv(xmhsdk.EnvUsBeta)
+	//xmhsdk.AppId = "1000170"
+	//xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
+	//xmhsdk.SignSecret = "vevor_beta"
+	//xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	auth.New()
+	params := &xmhsdk.PlatformOrderParam{
+		UserEmail:    "yujianfx@xcotton.cn",
+		UserId:       "VIPER3",
+		DisComputeId: "xcp-00222580000000000508829558",
+		OrderInfo: &xmhsdk.DOrder{
+			OrderId: strconv.Itoa(int(time.Now().Unix())),
+			//SubOrderId:        "SubOrderId6",
+			TotalPayPrice:     "310.00",
+			TotalPrice:        "0.00",
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_PAID,
+			InsuredPayPrice:   "10.00",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           time.Now().Format(time.RFC3339),
+			PaySn:             time.Now().Format(time.RFC3339),
+			OrderModifyTime:   time.Now().Add(-8 * time.Hour).Format(time.RFC3339),
+			//OrderCreateTime:   time.Now().In(time.UTC).Add(-8 * time.Hour).Format(time.RFC3339),
+			OrderCreateTime: time.Now().Format(time.RFC3339),
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "CN",
+					CityCode: "CN",
+					ZipCode:  "10086",
+					//City:     "亚特兰提斯",
+				},
+			},
+			ItemList: []*xmhsdk.DItem{{
+				ItemId: "97760109-16ad-40c9-9385-caba381a26aa",
+				SkuId:  "SKU001",
+				//OrderGoodsId:      "SKU001000001",
+				ItemName:          "Durable Concrete Shirt",
+				Currency:          "USD",
+				UnitPrice:         "0",
+				UnitNum:           "1",
+				TotalPrice:        "150",
+				PreferentialPrice: "0",
+				TotalPayPrice:     "150.00",
+			},
+				{
+					ItemId: "97760109-16ad-40c9-9385-caba381a26aa2",
+					SkuId:  "SKU002",
+					//OrderGoodsId:      "SKU001000002",
+					ItemName:          "Durable Concrete Shirt2",
+					Currency:          "USD",
+					UnitPrice:         "0",
+					UnitNum:           "2",
+					TotalPrice:        "150",
+					PreferentialPrice: "0",
+					TotalPayPrice:     "150.00",
+				},
+			},
+		},
+		//ShipInfoList: []*xmhsdk.ShipInfo{
+		//	{
+		//		ShipId:             strconv.Itoa(int(time.Now().Unix())),
+		//		ShipCompanyCode:    "SF",
+		//		ShipTrackNumber:    strconv.Itoa(int(time.Now().Unix())),
+		//		ShipStateString:    "已发货",
+		//		ShipPrice:          "6.00",
+		//		ActualShipSendTime: time.Now().Format(time.RFC3339),
+		//		ShipOtherInfo: &xmhsdk.ShipAddress{
+		//			Country:  "中国",
+		//			Province: "浙江省",
+		//			City:     "杭州市",
+		//		},
+		//		ItemList: []*xmhsdk.DItem{{
+		//			ItemId:            "97760109-16ad-40c9-9385-caba381a26aa",
+		//			SkuId:             "SKU001",
+		//			ItemName:          "Durable Concrete Shirt",
+		//			Currency:          "USD",
+		//			UnitPrice:         "100.00",
+		//			UnitNum:           "2",
+		//			TotalPrice:        "200.00",
+		//			PreferentialPrice: "50.00",
+		//			TotalPayPrice:     "150.00",
+		//		}},
+		//	},
+		//},
+	}
+	pr, err := New(params)
+	if err != nil {
+		t.Errorf("pr error: %s", xmhsdk.ToStr(err))
+	}
+	t.Logf("pr result: %s", xmhsdk.ToStr(pr))
+}
+
+func TestUsBetaPpOrder(t *testing.T) {
+	xmhsdk.AppId = "1000160"
+	xmhsdk.AppSecret = "xzs6We8YcKdpHrGQn8XHpyGCNg0a7sd7"
+	xmhsdk.SignSecret = "ex_xmh_test"
+	xmhsdk.SetEnv(xmhsdk.EnvUsBeta)
+	auth.New()
+	params := &xmhsdk.PlatformOrderParam{
+		UserEmail: "yujianfx@xcotton.cn",
+		UserId:    "VIPER3",
+		OrderInfo: &xmhsdk.DOrder{
+			OrderId: strconv.Itoa(int(time.Now().Unix())),
+			//SubOrderId:    "SubOrderId6",
+			TotalPayPrice: "3003.00",
+
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_PAID,
+			InsuredPayPrice:   "10",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           time.Now().Format(time.RFC3339),
+			PaySn:             time.Now().Format(time.RFC3339),
+			OrderModifyTime:   time.Now().Format(time.RFC3339),
+			OrderCreateTime:   time.Now().Format(time.RFC3339),
+			//OrderCreateTime: "2025-04-07T05:37:10.000Z",
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "CN",
+					CityCode: "CN",
+					ZipCode:  "996",
+				},
+			},
+			ItemList: []*xmhsdk.DItem{{
+				ItemId: "1FCALEORCDO01_100",
+				//SkuId:             "SKU001",
+				//OrderGoodsId: "16GA5QRB5TO01_110",
+				ItemName:  "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				Currency:  "USD",
+				UnitPrice: "48.00",
+				UnitNum:   "2",
+				//TotalPrice:        "200.00",
+				//PreferentialPrice: "50.00",
+				TotalPayPrice:   "4500.00",
+				InsuredPayPrice: "36.0",
+				//Properties: map[string]string{
+				//	"Plan ID": "10802003",
+				//},
+				SumInsured: "1000.00",
+				PpVariant: &xmhsdk.PPVariant{
+					VariantID:   "",
+					Name:        xmhsdk.PPPlanCodeFor1Years,
+					PriceString: "12.00",
+					Currency:    "USD",
+					Properties: map[string]string{
+						"Reference": "16GA5QRB5TO01_110",
+						"Plan ID":   xmhsdk.PPPlanCodeFor1Years,
+						"Product":   "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+					},
+				},
+			},
+			},
 		},
 	}
 	pr, err := New(params)

@@ -20,7 +20,7 @@ func TestTestCancelSpServiceOrder(t *testing.T) {
 
 			{
 				CancelId:       strconv.FormatInt(time.Now().Unix(), 10),
-				ServiceOrderId: "20251203XSP1167613823E65",
+				ServiceOrderId: "20260205XPP1167613859065",
 				CancelTime:     time.Now().Format(time.RFC3339),
 			},
 		},
@@ -32,38 +32,39 @@ func TestTestCancelSpServiceOrder(t *testing.T) {
 	t.Logf("TestCancelSpServiceOrder result:%s", xmhsdk.ToStr(result))
 }
 func TestPartialCancelSpServiceOrder(t *testing.T) {
-	//xmhsdk.AppId = "1000168"
-	//xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
-	//xmhsdk.SignSecret = "vevor-alpha"
-	//xmhsdk.SetEnv(xmhsdk.EnvAlpha)
-	xmhsdk.AppId = "1000170"
-	xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
-	xmhsdk.SignSecret = "vevor_beta"
-	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	//xmhsdk.AppId = "1000170"
+	//xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
+	//xmhsdk.SignSecret = "vevor_beta"
+	//xmhsdk.SetEnv(xmhsdk.EnvBeta)
 	auth.New()
 	param := &xmhsdk.CancelServiceOrderParam{
 		CancelServiceOrderItems: []xmhsdk.CancelServiceOrderItem{
 			{
-				CancelId:       strconv.FormatInt(time.Now().Unix(), 10),
-				ServiceOrderId: "20251209XSP1167613829A65",
+				CancelId: strconv.FormatInt(time.Now().Unix(), 10),
+				//CancelId:       "1770697155",
+				ServiceOrderId: "20260210XPP1167613919A65",
 				CancelTime:     time.Now().Format(time.RFC3339),
-				CancelFee:      "5",
-				Currency:       "USD",
-				CancelItems: []*xmhsdk.DItem{
-					{
-						ItemId: "16GA5QRB5TO01_110",
-						//SkuId:             "SKU001",
-						//OrderGoodsId: "16GA5QRB5TO01_110",
-						ItemName:  "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
-						Currency:  "USD",
-						UnitPrice: "48.00",
-						UnitNum:   "2",
-						//TotalPrice:        "200.00",
-						//PreferentialPrice: "50.00",
-						TotalPayPrice:   "4500.00",
-						InsuredPayPrice: "36.0",
-					},
-				},
+				//CancelFee:      "5",
+				Currency: "USD",
+				//CancelItems: []*xmhsdk.DItem{
+				//	{
+				//		ItemId: "16GA5QRB5TO01_110",
+				//		//SkuId:             "SKU001",
+				//		//OrderGoodsId: "16GA5QRB5TO01_110",
+				//		ItemName:  "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
+				//		Currency:  "USD",
+				//		UnitPrice: "48.00",
+				//		UnitNum:   "1",
+				//		//TotalPrice:        "200.00",
+				//		//PreferentialPrice: "50.00",
+				//		TotalPayPrice:   "100.00",
+				//		InsuredPayPrice: "36.0",
+				//	},
+				//},
 			},
 		}}
 	result, err := CancelServiceOrder(param)
@@ -83,7 +84,7 @@ func TestCancelPpServiceOrder(t *testing.T) {
 		CancelServiceOrderItems: []xmhsdk.CancelServiceOrderItem{
 			{
 				CancelId:       strconv.FormatInt(time.Now().Unix(), 10),
-				ServiceOrderId: "20251210XSP116761382BE65",
+				ServiceOrderId: "20260116XPP1167613849265",
 				//CancelId:       "1765371131",
 				CancelTime: time.Now().Format(time.RFC3339),
 				CancelFee:  "5",

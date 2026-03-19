@@ -59,6 +59,7 @@ type DItem struct {
 	TotalPayPrice        string          `json:"totalPayPrice"`
 	TotalPayPriceInt     int64           `json:"totalPayPriceInt"`
 	InsuredPayPrice      string          `json:"insuredPayPrice,omitempty" validate:"omitempty,numeric"`
+	SumInsured           string          `json:"sumInsured,omitempty"`
 	Properties           DItemProperties `json:"Properties"`
 	PpVariant            *PPVariant      `json:"ppVariant"`
 	ServiceOrderIds      []string        `json:"serviceOrderIds"`

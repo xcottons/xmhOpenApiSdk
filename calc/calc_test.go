@@ -8,10 +8,10 @@ import (
 )
 
 func TestSpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000206"
-	xmhsdk.AppSecret = "lsL6aOxZJ7qFhsp0wGcXcdzVJEvcdPjP"
-	xmhsdk.SignSecret = "huion-beta"
-	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	xmhsdk.AppId = "1601704"
+	xmhsdk.AppSecret = "NAXnV842UJSjAWqhq53da9sw78JiranX"
+	xmhsdk.SignSecret = "ueeshop-idc"
+	xmhsdk.SetEnv(xmhsdk.EnvIdc)
 	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
@@ -34,8 +34,8 @@ func TestSpCalc(t *testing.T) {
 }
 
 func TestPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1600562"
-	xmhsdk.AppSecret = "kkxyE9En3ZuwY5lRkhJFEPfDUE3IlCN8"
+	xmhsdk.AppId = "1601058"
+	xmhsdk.AppSecret = "VnB5iAg0R793QZ6MKeBedHwbLbu1d1jN"
 	xmhsdk.SignSecret = "crealityfalcon-test"
 	xmhsdk.SetEnv(xmhsdk.EnvIdc)
 	auth.New()
@@ -51,6 +51,42 @@ func TestPpCalc(t *testing.T) {
 			TotalPrice:        "0.0",
 			ItemList: []*xmhsdk.DItem{{
 				ItemId:            "9640701231402",
+				SkuId:             "SKU001",
+				ItemName:          "Durable Concrete Shirt",
+				Currency:          "JPY",
+				UnitPrice:         "100.00",
+				UnitNum:           "2",
+				TotalPrice:        "200.00",
+				PreferentialPrice: "50.00",
+				TotalPayPrice:     "150.00",
+				//VariantId:         "123",
+			}},
+		},
+	}
+	calc, err := Calc(params)
+	if err != nil {
+		t.Errorf("calc price error: %s", xmhsdk.ToStr(err))
+	}
+	t.Logf("calc price result: %s", xmhsdk.ToStr(calc))
+}
+func TestShopifyPpCalc(t *testing.T) {
+	xmhsdk.AppId = "1000146"
+	xmhsdk.AppSecret = "oOBzwiEPLIx33dvQfbIS5iR0GN94mFv2"
+	xmhsdk.SignSecret = ""
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	auth.New()
+	params := &xmhsdk.CalcParams{
+		UserID:                   "VIPER3",
+		UserEmail:                "VIPER3@qq.com",
+		BuyerIP:                  "113.89.35.162",
+		IsShippingProtectionOpen: false,
+		OrderInfo: &xmhsdk.DOrder{
+			TotalPayPrice:     "150.00",
+			Currency:          "USD",
+			PreferentialPrice: "0.0",
+			TotalPrice:        "0.0",
+			ItemList: []*xmhsdk.DItem{{
+				ItemId:            "7598670512227",
 				SkuId:             "SKU001",
 				ItemName:          "Durable Concrete Shirt",
 				Currency:          "JPY",
@@ -103,7 +139,7 @@ func TestEuSpCalc(t *testing.T) {
 	xmhsdk.AppId = "10001"
 	xmhsdk.AppSecret = "sX6QltIfMJEobQqxsdRFt3w2Jr8jlZaM"
 	xmhsdk.SignSecret = "yujianfx-eu"
-	xmhsdk.SetEnv(xmhsdk.EnvEuBeta)
+	xmhsdk.SetEnv(xmhsdk.EnvUsBeta)
 	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",

@@ -15,7 +15,7 @@ func TestEuIDcSpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvEuIdc)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail:    "wejnoospkonr@hldrive.com",
+		UserEmail:    "yujianfx@xcotton.cn",
 		UserId:       "VIPER3",
 		DisComputeId: "xcp-00222580000000000508829558",
 		OrderInfo: &xmhsdk.DOrder{
@@ -106,7 +106,7 @@ func TestEuIDcPpOrder(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvEuIdc)
 	auth.New()
 	params := &xmhsdk.PlatformOrderParam{
-		UserEmail: "wejnoospkonr@hldrive.com",
+		UserEmail: "yujianfx@xcotton.cn",
 		UserId:    "VIPER3",
 		OrderInfo: &xmhsdk.DOrder{
 			OrderId:           strconv.Itoa(int(time.Now().Unix())),
