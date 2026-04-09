@@ -1,6 +1,10 @@
 package order
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
 	"strconv"
 	"testing"
 	"time"
@@ -33,7 +37,7 @@ func TestSpOrder(t *testing.T) {
 			InsuredPayPrice:   "10.00",
 			TaxPrice:          "0.00",
 			ShipPrice:         "0.00",
-			PreferentialPrice: "0.00",
+			PreferentialPrice: "300.00",
 			PayTime:           time.Now().Format(time.RFC3339),
 			PaySn:             time.Now().Format(time.RFC3339),
 			OrderModifyTime:   time.Now().Add(-8 * time.Hour).Format(time.RFC3339),
@@ -1118,4 +1122,14 @@ func TestUsBetaPpOrder(t *testing.T) {
 		t.Errorf("pr error: %s", xmhsdk.ToStr(err))
 	}
 	t.Logf("pr result: %s", xmhsdk.ToStr(pr))
+}
+
+func TestHmac(t *testing.T) {
+	insuredEmail := "pkasamson@yahoo.com"
+	platformOrderNumber := "6376650113083"
+	serviceOrder := "20260324XPP30615F8B8C15"
+	hMac := hmac.New(sha256.New, []byte(insuredEmail))
+	hMac.Write([]byte(fmt.Sprintf("%s+%s", serviceOrder, platformOrderNumber)))
+	toString := hex.EncodeToString(hMac.Sum(nil))
+	t.Log(toString)
 }
