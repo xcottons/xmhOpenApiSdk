@@ -34,9 +34,9 @@ func TestSpCalc(t *testing.T) {
 }
 
 func TestPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1601058"
-	xmhsdk.AppSecret = "VnB5iAg0R793QZ6MKeBedHwbLbu1d1jN"
-	xmhsdk.SignSecret = "crealityfalcon-test"
+	xmhsdk.AppId = "1601056"
+	xmhsdk.AppSecret = "tt8ZfdeUi5UrMqHVT17b9NUj9O4qAvcP"
+	xmhsdk.SignSecret = "crealityusa-idc"
 	xmhsdk.SetEnv(xmhsdk.EnvIdc)
 	auth.New()
 	params := &xmhsdk.CalcParams{
@@ -49,18 +49,44 @@ func TestPpCalc(t *testing.T) {
 			Currency:          "USD",
 			PreferentialPrice: "0.0",
 			TotalPrice:        "0.0",
-			ItemList: []*xmhsdk.DItem{{
-				ItemId:            "9640701231402",
-				SkuId:             "SKU001",
-				ItemName:          "Durable Concrete Shirt",
-				Currency:          "JPY",
-				UnitPrice:         "100.00",
-				UnitNum:           "2",
-				TotalPrice:        "200.00",
-				PreferentialPrice: "50.00",
-				TotalPayPrice:     "150.00",
-				//VariantId:         "123",
-			}},
+			ItemList: []*xmhsdk.DItem{
+				{
+					ItemId:            "2026010901-US-1",
+					SkuId:             "2026010901-US",
+					ItemName:          "Durable Concrete Shirt",
+					Currency:          "JPY",
+					UnitPrice:         "100.00",
+					UnitNum:           "2",
+					TotalPrice:        "200.00",
+					PreferentialPrice: "50.00",
+					TotalPayPrice:     "150.00",
+					//VariantId:         "123",
+				},
+				//{
+				//	ItemId:            "2026010901-US",
+				//	SkuId:             "2026010901-US",
+				//	ItemName:          "Durable Concrete Shirt",
+				//	Currency:          "JPY",
+				//	UnitPrice:         "100.00",
+				//	UnitNum:           "2",
+				//	TotalPrice:        "200.00",
+				//	PreferentialPrice: "50.00",
+				//	TotalPayPrice:     "150.00",
+				//	//VariantId:         "123",
+				//}
+				{
+					ItemId: "1002110184",
+					SkuId:  "1002110184",
+					//VariantId:         "53226298835309",
+					ItemName:          "Durable Concrete Shirt",
+					Currency:          "JPY",
+					UnitPrice:         "100.00",
+					UnitNum:           "2",
+					TotalPrice:        "200.00",
+					PreferentialPrice: "50.00",
+					TotalPayPrice:     "150.00",
+				},
+			},
 		},
 	}
 	calc, err := Calc(params)
@@ -107,26 +133,56 @@ func TestShopifyPpCalc(t *testing.T) {
 }
 
 func TestOnlyPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1000206"
-	xmhsdk.AppSecret = "lsL6aOxZJ7qFhsp0wGcXcdzVJEvcdPjP"
-	xmhsdk.SignSecret = "huion-beta"
-	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	xmhsdk.AppId = "1601056"
+	xmhsdk.AppSecret = "tt8ZfdeUi5UrMqHVT17b9NUj9O4qAvcP"
+	xmhsdk.SignSecret = "crealityusa-idc"
+	xmhsdk.SetEnv(xmhsdk.EnvIdc)
 	auth.New()
 	params := &xmhsdk.PpCalcParams{
-		ItemList: []*xmhsdk.DItem{{
-			ItemId:    "P00000041",
-			SkuId:     "P0000004100",
-			VariantId: "P0000004100",
-			//OrderGoodsId: strconv.Itoa(int(time.Now().UnixNano()) + 5),
-			ItemName: "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
-			Currency: "USD",
-			//UnitPrice:         "100.00",
-			UnitNum: "2",
-			//TotalPrice:        "200.00",
-			//PreferentialPrice: "50.00",
-			TotalPayPrice:   "150.00",
-			InsuredPayPrice: "24.0",
-		}},
+		/*
+		  "currency" : "CAD",
+		    "itemId" : "3301120004",
+		    "itemName" : "CR-Silk PLA",
+		    "skuId" : "3301120004",
+		    "unitPrice" : "1.00",
+		    "variantId" : "50350464827692"
+		*/
+		ItemList: []*xmhsdk.DItem{
+			//	{
+			//	ItemId:            "2026010901-US",
+			//	SkuId:             "2026010901-US",
+			//	ItemName:          "Durable Concrete Shirt",
+			//	Currency:          "JPY",
+			//	UnitPrice:         "100.00",
+			//	UnitNum:           "2",
+			//	TotalPrice:        "200.00",
+			//	PreferentialPrice: "50.00",
+			//	TotalPayPrice:     "150.00",
+			//	//VariantId:         "123",
+			//}, {
+			//	ItemId:            "3301120004",
+			//	SkuId:             "3301120004",
+			//	VariantId:         "50350464827692",
+			//	ItemName:          "Durable Concrete Shirt",
+			//	Currency:          "JPY",
+			//	UnitPrice:         "100.00",
+			//	UnitNum:           "2",
+			//	TotalPrice:        "200.00",
+			//	PreferentialPrice: "50.00",
+			//	TotalPayPrice:     "150.00",
+			//},
+			{
+				ItemId:            "1002110184",
+				SkuId:             "1002110184",
+				VariantId:         "50350464827692",
+				ItemName:          "Durable Concrete Shirt",
+				Currency:          "JPY",
+				UnitPrice:         "100.00",
+				UnitNum:           "2",
+				TotalPrice:        "200.00",
+				PreferentialPrice: "50.00",
+				TotalPayPrice:     "150.00",
+			}},
 	}
 	calc, err := PpCalc(params)
 	if err != nil {
