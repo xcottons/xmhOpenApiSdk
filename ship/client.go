@@ -15,7 +15,7 @@ func New(params *xmhsdk.ShipParam) (*xmhsdk.ShipResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+	return result, nil
 }
 
 func Batch(params []*xmhsdk.ShipParam) error {

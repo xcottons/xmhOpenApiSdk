@@ -11,7 +11,143 @@ import (
 
 	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
+	orderapi "github.com/cjay-shouhui/xmhOpenApiSdk/order"
 )
+
+const claimPipelineShipBatchDefaultSize = 10
+
+func initAlphaEnvForShip(t *testing.T) {
+	t.Helper()
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	if _, err := auth.New(); err != nil {
+		t.Fatalf("auth.New error: %v", err)
+	}
+}
+
+func getShipBatchSizeFromEnv() int {
+	raw := os.Getenv("XMH_CLAIM_BATCH_SIZE")
+	if raw == "" {
+		return claimPipelineShipBatchDefaultSize
+	}
+	size, err := strconv.Atoi(raw)
+	if err != nil || size <= 0 {
+		return claimPipelineShipBatchDefaultSize
+	}
+	return size
+}
+
+func buildOrderParamForShipPipeline(orderID string, itemID string) *xmhsdk.PlatformOrderParam {
+	now := time.Now()
+	return &xmhsdk.PlatformOrderParam{
+		UserEmail:    "yujianfx@xcotton.cn",
+		UserId:       "VIPER3",
+		DisComputeId: "xcp-00222580000000000508829558",
+		OrderInfo: &xmhsdk.DOrder{
+			OrderId:           orderID,
+			SubOrderId:        orderID,
+			TotalPayPrice:     "153.00",
+			TotalPrice:        "150.00",
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_PAID,
+			InsuredPayPrice:   "3.00",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           now.Format(time.RFC3339),
+			PaySn:             orderID,
+			OrderModifyTime:   now.Format(time.RFC3339),
+			OrderCreateTime:   now.Format(time.RFC3339),
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "United States",
+					CityCode: "US",
+					ZipCode:  "10001",
+				},
+			},
+			ItemList: []*xmhsdk.DItem{
+				{
+					ItemId:            itemID,
+					SkuId:             "SKU-CLAIM-BATCH-1",
+					ItemName:          "Claim Pipeline Item",
+					Currency:          "USD",
+					UnitPrice:         "150.00",
+					UnitNum:           "1",
+					TotalPrice:        "150.00",
+					PreferentialPrice: "0.00",
+					TotalPayPrice:     "150.00",
+				},
+			},
+		},
+	}
+}
+
+func TestBatchSyncShipForClaimPipeline(t *testing.T) {
+	initAlphaEnvForShip(t)
+
+	batchSize := getShipBatchSizeFromEnv()
+	success := 0
+	for i := 0; i < batchSize; i++ {
+		orderID := strconv.FormatInt(time.Now().UnixNano()+int64(i), 10)
+		itemID := fmt.Sprintf("claim-batch-item-%d", i)
+		orderParam := buildOrderParamForShipPipeline(orderID, itemID)
+		orderResult, orderErr := orderapi.New(orderParam)
+		if orderErr != nil {
+			t.Errorf("batch sync order for ship failed idx=%d orderId=%s err=%v", i, orderID, orderErr)
+			continue
+		}
+
+		now := time.Now()
+		shipParam := &xmhsdk.ShipParam{
+			OrderId:    orderResult.OrderId,
+			SubOrderId: orderResult.OrderId,
+			ShipInfoList: []*xmhsdk.ShipInfo{
+				{
+					ShipId:             fmt.Sprintf("%s-%d", orderResult.OrderId, i),
+					ShipCompanyCode:    "UPS",
+					ShipCompany:        "UPS",
+					ShipTrackNumber:    fmt.Sprintf("TRACK-%s-%d", orderResult.OrderId, i),
+					ShipStateString:    "SHIPPED",
+					ShipPrice:          "0.00",
+					ActualShipSendTime: now.Format(time.RFC3339),
+					ShipOtherInfo: &xmhsdk.ShipAddress{
+						Country:    "United States",
+						CityCode:   "US",
+						Province:   "California",
+						City:       "Los Angeles",
+						PostalCode: "90001",
+					},
+					ItemList: []*xmhsdk.DItem{
+						{
+							ItemId:        orderParam.OrderInfo.ItemList[0].ItemId,
+							SkuId:         orderParam.OrderInfo.ItemList[0].SkuId,
+							ItemName:      orderParam.OrderInfo.ItemList[0].ItemName,
+							Currency:      "USD",
+							UnitPrice:     "150.00",
+							UnitNum:       "1",
+							TotalPrice:    "150.00",
+							TotalPayPrice: "150.00",
+						},
+					},
+				},
+			},
+		}
+
+		shipResult, shipErr := New(shipParam)
+		if shipErr != nil {
+			t.Errorf("batch sync ship failed idx=%d orderId=%s err=%v", i, orderResult.OrderId, shipErr)
+			continue
+		}
+		t.Logf("batch sync ship success idx=%d orderId=%s xmhOrderId=%s shipIds=%v", i, shipResult.OrderId, shipResult.DisXmhShopOrderId, shipResult.DisXmhShopOrderShipId)
+		success++
+	}
+
+	if success == 0 {
+		t.Fatalf("batch sync ship failed: no success in %d attempts", batchSize)
+	}
+}
 
 func TestShipSpOrder(t *testing.T) {
 	xmhsdk.AppId = "1000168"

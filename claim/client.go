@@ -18,13 +18,13 @@ func ClaimItemsQuery(params *xmhsdk.ClaimItemsQueryParam) (*xmhsdk.ClaimItems, e
 }
 
 func ServiceClaimItemsQuery(params *xmhsdk.ServiceClaimItemsQueryParam) (*xmhsdk.ClaimItems, error) {
-	result := &xmhsdk.ClaimItems{}
+	result := &xmhsdk.ServiceClaimItemsQueryResult{}
 	err := xmhsdk.MakeRequest(serviceClaimItemsQueryUrl, params, result)
 	if err != nil {
 		xmhsdk.Logger.Errorf("ClaimItemsQuery error: %v", err)
 		return nil, err
 	}
-	return result, nil
+	return &result.ClaimItems, nil
 }
 
 func ClaimReport(params *xmhsdk.OpenApiClaimReport) (*xmhsdk.OpenApiClaimReportResult, error) {

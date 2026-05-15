@@ -22,6 +22,7 @@ type AccountInfo struct {
 }
 
 type OpenApiClaimReportResult struct {
+	ClaimId  string   `json:"claimId"`
 	ClaimIds []string `json:"claimIds"`
 }
 
@@ -33,6 +34,9 @@ type ServiceClaimItemsQueryParam struct {
 	ServiceOrderId string `json:"serviceOrderId"`
 }
 type ClaimItems []*OpenApiClaimItem
+type ServiceClaimItemsQueryResult struct {
+	ClaimItems ClaimItems `json:"claimItems"`
+}
 
 type OpenApiClaimItem struct {
 	ProductId        string `json:"productId"`

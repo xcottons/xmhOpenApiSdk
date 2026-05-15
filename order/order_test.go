@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"os"
 	"strconv"
 	"testing"
 	"time"
@@ -12,6 +13,98 @@ import (
 	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
 )
+
+const claimPipelineDefaultBatchSize = 10
+
+func initAlphaEnv(t *testing.T) {
+	t.Helper()
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
+	if _, err := auth.New(); err != nil {
+		t.Fatalf("auth.New error: %v", err)
+	}
+}
+
+func getBatchSizeFromEnv() int {
+	raw := os.Getenv("XMH_CLAIM_BATCH_SIZE")
+	if raw == "" {
+		return claimPipelineDefaultBatchSize
+	}
+	size, err := strconv.Atoi(raw)
+	if err != nil || size <= 0 {
+		return claimPipelineDefaultBatchSize
+	}
+	return size
+}
+
+func buildClaimPipelineOrderParam(orderID string, itemID string) *xmhsdk.PlatformOrderParam {
+	now := time.Now()
+	return &xmhsdk.PlatformOrderParam{
+		UserEmail:    "yujianfx@xcotton.cn",
+		UserId:       "VIPER3",
+		DisComputeId: "xcp-00222580000000000508829558",
+		OrderInfo: &xmhsdk.DOrder{
+			OrderId:           orderID,
+			SubOrderId:        orderID,
+			TotalPayPrice:     "153.00",
+			TotalPrice:        "150.00",
+			Currency:          "USD",
+			OrderState:        xmhsdk.OERDER_STATE_PAID,
+			InsuredPayPrice:   "3.00",
+			TaxPrice:          "0.00",
+			ShipPrice:         "0.00",
+			PreferentialPrice: "0.00",
+			PayTime:           now.Format(time.RFC3339),
+			PaySn:             orderID,
+			OrderModifyTime:   now.Format(time.RFC3339),
+			OrderCreateTime:   now.Format(time.RFC3339),
+			ReceiverInfoDto: &xmhsdk.ReceiverInfoDto{
+				ReceiverShipAddress: &xmhsdk.ShipAddress{
+					Country:  "United States",
+					CityCode: "US",
+					ZipCode:  "10001",
+				},
+			},
+			ItemList: []*xmhsdk.DItem{
+				{
+					ItemId:            itemID,
+					SkuId:             "SKU-CLAIM-BATCH-1",
+					ItemName:          "Claim Pipeline Item",
+					Currency:          "USD",
+					UnitPrice:         "150.00",
+					UnitNum:           "1",
+					TotalPrice:        "150.00",
+					PreferentialPrice: "0.00",
+					TotalPayPrice:     "150.00",
+				},
+			},
+		},
+	}
+}
+
+func TestBatchSyncOrderForClaimPipeline(t *testing.T) {
+	initAlphaEnv(t)
+
+	batchSize := getBatchSizeFromEnv()
+	success := 0
+	for i := 0; i < batchSize; i++ {
+		orderID := strconv.FormatInt(time.Now().UnixNano()+int64(i), 10)
+		itemID := fmt.Sprintf("claim-batch-item-%d", i)
+		result, err := New(buildClaimPipelineOrderParam(orderID, itemID))
+		if err != nil {
+			t.Errorf("batch sync order failed idx=%d orderId=%s err=%v", i, orderID, err)
+			continue
+		}
+		t.Logf("batch sync order success idx=%d orderId=%s xmhShopOrderId=%s serviceOrderId=%s", i, result.OrderId, result.XmhShopOrderId, result.Insurance.SPInsureDetail.ServiceOrderID)
+		success++
+	}
+
+	if success == 0 {
+		t.Fatalf("batch sync order failed: no success in %d attempts", batchSize)
+	}
+}
 
 func TestSpOrder(t *testing.T) {
 	xmhsdk.AppId = "1000168"
