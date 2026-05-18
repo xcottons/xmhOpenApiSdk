@@ -12,9 +12,13 @@ import (
 
 	xmhsdk "github.com/cjay-shouhui/xmhOpenApiSdk"
 	"github.com/cjay-shouhui/xmhOpenApiSdk/auth"
+	"github.com/cjay-shouhui/xmhOpenApiSdk/claim"
+	shipapi "github.com/cjay-shouhui/xmhOpenApiSdk/ship"
 )
 
 const claimPipelineDefaultBatchSize = 10
+const claimQueryRetryCount = 6
+const claimQueryRetryInterval = 2 * time.Second
 
 func initAlphaEnv(t *testing.T) {
 	t.Helper()
@@ -84,6 +88,196 @@ func buildClaimPipelineOrderParam(orderID string, itemID string) *xmhsdk.Platfor
 	}
 }
 
+func buildClaimPipelineShipParam(orderRes *xmhsdk.PlatformOrderResult, orderParam *xmhsdk.PlatformOrderParam, idx int) *xmhsdk.ShipParam {
+	now := time.Now()
+	item := orderParam.OrderInfo.ItemList[0]
+	return &xmhsdk.ShipParam{
+		OrderId:    orderRes.OrderId,
+		SubOrderId: orderRes.OrderId,
+		ShipInfoList: []*xmhsdk.ShipInfo{
+			{
+				ShipId:             fmt.Sprintf("%s-%d", orderRes.OrderId, idx),
+				ShipCompanyCode:    "UPS",
+				ShipCompany:        "UPS",
+				ShipTrackNumber:    fmt.Sprintf("TRACK-%s-%d", orderRes.OrderId, idx),
+				ShipStateString:    "SHIPPED",
+				ShipPrice:          "0.00",
+				ActualShipSendTime: now.Format(time.RFC3339),
+				ShipOtherInfo: &xmhsdk.ShipAddress{
+					Country:    "United States",
+					CityCode:   "US",
+					Province:   "California",
+					City:       "Los Angeles",
+					PostalCode: "90001",
+				},
+				ItemList: []*xmhsdk.DItem{
+					{
+						ItemId:        item.ItemId,
+						SkuId:         item.SkuId,
+						ItemName:      item.ItemName,
+						Currency:      item.Currency,
+						UnitPrice:     item.UnitPrice,
+						UnitNum:       item.UnitNum,
+						TotalPrice:    item.TotalPrice,
+						TotalPayPrice: item.TotalPayPrice,
+					},
+				},
+			},
+		},
+	}
+}
+
+func queryClaimableItemByOrderID(orderID string) (*xmhsdk.OpenApiClaimItem, error) {
+	var lastErr error
+	for i := 0; i < claimQueryRetryCount; i++ {
+		items, err := claim.ClaimItemsQuery(&xmhsdk.ClaimItemsQueryParam{
+			OrderID:            orderID,
+			ClaimInsuranceType: 4,
+		})
+		if err != nil {
+			lastErr = err
+			time.Sleep(claimQueryRetryInterval)
+			continue
+		}
+		if len(*items) > 0 {
+			return (*items)[0], nil
+		}
+		lastErr = fmt.Errorf("no claim items found")
+		time.Sleep(claimQueryRetryInterval)
+	}
+	return nil, fmt.Errorf("query claim item failed for order %s: %v", orderID, lastErr)
+}
+
+func queryClaimableItemByServiceOrderID(serviceOrderID string) (*xmhsdk.OpenApiClaimItem, error) {
+	var lastErr error
+	for i := 0; i < claimQueryRetryCount; i++ {
+		items, err := claim.ServiceClaimItemsQuery(&xmhsdk.ServiceClaimItemsQueryParam{
+			ServiceOrderId: serviceOrderID,
+		})
+		if err != nil {
+			lastErr = err
+			time.Sleep(claimQueryRetryInterval)
+			continue
+		}
+		if len(*items) > 0 {
+			return (*items)[0], nil
+		}
+		lastErr = fmt.Errorf("no claim items found")
+		time.Sleep(claimQueryRetryInterval)
+	}
+	return nil, fmt.Errorf("query claim item failed for serviceOrderId %s: %v", serviceOrderID, lastErr)
+}
+
+func firstNonEmpty(values ...string) string {
+	for _, v := range values {
+		if v != "" {
+			return v
+		}
+	}
+	return ""
+}
+
+func buildClaimReportParam(serviceOrderID string, claimItem *xmhsdk.OpenApiClaimItem, orderItem *xmhsdk.DItem) *xmhsdk.OpenApiClaimReport {
+	now := time.Now().Format(time.RFC3339)
+	claimType := int(claimItem.ClaimType)
+	if claimType <= 0 {
+		claimType = 1
+	}
+
+	priceCurrency := claimItem.PriceCurrency
+	if priceCurrency == "" && orderItem != nil {
+		priceCurrency = orderItem.Currency
+	}
+	if priceCurrency == "" {
+		priceCurrency = "USD"
+	}
+
+	itemUnitPrice := claimItem.ItemUnitPrice
+	itemSumPrice := claimItem.ItemSumPrice
+	if orderItem != nil {
+		if itemUnitPrice == "" {
+			itemUnitPrice = firstNonEmpty(orderItem.UnitPrice, orderItem.TotalPayPrice)
+		}
+		if itemSumPrice == "" {
+			itemSumPrice = firstNonEmpty(orderItem.TotalPayPrice, orderItem.TotalPrice, orderItem.UnitPrice)
+		}
+	}
+
+	claimPayout := claimItem.ClaimApplyMoney
+	if claimPayout == "" {
+		claimPayout = claimItem.Claimpayout
+	}
+	if claimPayout == "" {
+		claimPayout = itemSumPrice
+	}
+	if claimPayout == "" {
+		claimPayout = itemUnitPrice
+	}
+	if claimPayout == "" {
+		claimPayout = "50.00"
+	}
+
+	itemNum := int32(1)
+	if claimItem.MaxClaimNum > 0 && itemNum > claimItem.MaxClaimNum {
+		itemNum = claimItem.MaxClaimNum
+	}
+	if orderItem != nil {
+		if n, err := strconv.Atoi(orderItem.UnitNum); err == nil && n > 0 && claimItem.MaxClaimNum > 0 && int32(n) < claimItem.MaxClaimNum {
+			itemNum = int32(n)
+		}
+	}
+
+	productId := claimItem.ProductId
+	itemId := claimItem.ItemId
+	skuId := claimItem.SkuId
+	orderGoodsId := claimItem.OrderGoodsId
+	variantId := claimItem.VariantId
+	itemName := claimItem.ItemName
+	if orderItem != nil {
+		productId = firstNonEmpty(productId, orderItem.ProductId)
+		itemId = firstNonEmpty(itemId, orderItem.ItemId)
+		skuId = firstNonEmpty(skuId, orderItem.SkuId)
+		orderGoodsId = firstNonEmpty(orderGoodsId, orderItem.OrderGoodsId)
+		variantId = firstNonEmpty(variantId, orderItem.VariantId)
+		itemName = firstNonEmpty(itemName, orderItem.ItemName)
+	}
+
+	reportItem := &xmhsdk.OpenApiClaimItem{
+		ProductId:     productId,
+		ItemId:        itemId,
+		SkuId:         skuId,
+		OrderGoodsId:  orderGoodsId,
+		PlanId:        claimItem.PlanId,
+		VariantId:     variantId,
+		ItemNum:       itemNum,
+		ItemName:      itemName,
+		ItemUnitPrice: itemUnitPrice,
+		ItemSumPrice:  itemSumPrice,
+		PriceCurrency: priceCurrency,
+		Claimpayout:   claimPayout,
+		XmhServiceId:  serviceOrderID,
+	}
+
+	return &xmhsdk.OpenApiClaimReport{
+		ServiceOrderId:  serviceOrderID,
+		ClaimItems:      []*xmhsdk.OpenApiClaimItem{reportItem},
+		ClaimType:       claimType,
+		FileLinks:       []string{"https://example.com/claim-proof.jpg"},
+		Comments:        "batch claim from sdk pipeline test",
+		ClaimPaymentObj: 1,
+		PaymentMethod:   1,
+		AccountInfo: xmhsdk.AccountInfo{
+			AccountName:   "TestUser",
+			AccountNumber: "1234567890",
+			RoutingNumber: "021000021",
+			Address:       "100 Main St, Los Angeles, CA",
+		},
+		ClaimReportTime:    now,
+		LossOccurrenceTime: now,
+		Describe:           "Auto generated batch claim",
+	}
+}
+
 func TestBatchSyncOrderForClaimPipeline(t *testing.T) {
 	initAlphaEnv(t)
 
@@ -92,17 +286,77 @@ func TestBatchSyncOrderForClaimPipeline(t *testing.T) {
 	for i := 0; i < batchSize; i++ {
 		orderID := strconv.FormatInt(time.Now().UnixNano()+int64(i), 10)
 		itemID := fmt.Sprintf("claim-batch-item-%d", i)
-		result, err := New(buildClaimPipelineOrderParam(orderID, itemID))
-		if err != nil {
-			t.Errorf("batch sync order failed idx=%d orderId=%s err=%v", i, orderID, err)
+		orderParam := buildClaimPipelineOrderParam(orderID, itemID)
+
+		// Step 1: sync order
+		orderResult, orderErr := New(orderParam)
+		if orderErr != nil {
+			t.Errorf("pipeline order failed idx=%d orderId=%s err=%v", i, orderID, orderErr)
 			continue
 		}
-		t.Logf("batch sync order success idx=%d orderId=%s xmhShopOrderId=%s serviceOrderId=%s", i, result.OrderId, result.XmhShopOrderId, result.Insurance.SPInsureDetail.ServiceOrderID)
+
+		// Step 2: sync shipping
+		shipResult, shipErr := shipapi.New(buildClaimPipelineShipParam(orderResult, orderParam, i))
+		if shipErr != nil {
+			t.Errorf("pipeline ship failed idx=%d orderId=%s err=%v", i, orderResult.OrderId, shipErr)
+			continue
+		}
+
+		// Step 3: get serviceOrderId and query claimable item
+		serviceOrderID := orderResult.Insurance.SPInsureDetail.ServiceOrderID
+		if serviceOrderID == "" {
+			claimableItem, claimableErr := queryClaimableItemByOrderID(shipResult.OrderId)
+			if claimableErr != nil {
+				t.Errorf("pipeline serviceOrderId empty and order claim query failed idx=%d orderId=%s err=%v", i, shipResult.OrderId, claimableErr)
+				continue
+			}
+			serviceOrderID = claimableItem.XmhServiceId
+		}
+		if serviceOrderID == "" {
+			t.Errorf("pipeline serviceOrderId still empty idx=%d orderId=%s", i, shipResult.OrderId)
+			continue
+		}
+
+		claimableItem, claimableErr := queryClaimableItemByServiceOrderID(serviceOrderID)
+		if claimableErr != nil {
+			t.Errorf("pipeline service claim item query failed idx=%d orderId=%s serviceOrderId=%s err=%v", i, shipResult.OrderId, serviceOrderID, claimableErr)
+			continue
+		}
+		t.Logf("pipeline claimable item idx=%d productId=%s itemId=%s itemName=%s itemUnitPrice=%s itemSumPrice=%s claimType=%d",
+			i, claimableItem.ProductId, claimableItem.ItemId, claimableItem.ItemName, claimableItem.ItemUnitPrice, claimableItem.ItemSumPrice, claimableItem.ClaimType)
+
+		// Step 4: submit claim report
+		claimResult, claimErr := claim.ClaimReport(buildClaimReportParam(serviceOrderID, claimableItem, orderParam.OrderInfo.ItemList[0]))
+		if claimErr != nil {
+			t.Errorf("pipeline claim report failed idx=%d orderId=%s serviceOrderId=%s err=%v", i, shipResult.OrderId, serviceOrderID, claimErr)
+			continue
+		}
+
+		// Step 5: query the submitted claim to verify items
+		time.Sleep(2 * time.Second)
+		claimItems, queryErr := claim.ClaimQuery(&xmhsdk.ClaimQueryParam{
+			ServiceOrderId: serviceOrderID,
+			ClaimId:        claimResult.ClaimId,
+		})
+		if queryErr != nil {
+			t.Errorf("pipeline claim query failed idx=%d claimId=%s err=%v", i, claimResult.ClaimId, queryErr)
+			continue
+		}
+		if len(*claimItems) == 0 {
+			t.Errorf("pipeline claim query returned no items idx=%d claimId=%s", i, claimResult.ClaimId)
+			continue
+		}
+		for j, ci := range *claimItems {
+			t.Logf("pipeline claim item[%d] idx=%d productId=%s itemId=%s itemName=%s itemUnitPrice=%s itemSumPrice=%s claimType=%d claimState=%d",
+				j, i, ci.ProductId, ci.ItemId, ci.ItemName, ci.ItemUnitPrice, ci.ItemSumPrice, ci.ClaimType, ci.ClaimState)
+		}
+
+		t.Logf("pipeline success idx=%d orderId=%s serviceOrderId=%s claimId=%s claimIds=%v", i, shipResult.OrderId, serviceOrderID, claimResult.ClaimId, claimResult.ClaimIds)
 		success++
 	}
 
 	if success == 0 {
-		t.Fatalf("batch sync order failed: no success in %d attempts", batchSize)
+		t.Fatalf("pipeline failed: no success in %d attempts", batchSize)
 	}
 }
 
