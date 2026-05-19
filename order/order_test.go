@@ -16,7 +16,7 @@ import (
 	shipapi "github.com/cjay-shouhui/xmhOpenApiSdk/ship"
 )
 
-const claimPipelineDefaultBatchSize = 10
+const claimPipelineDefaultBatchSize = 100
 const claimQueryRetryCount = 6
 const claimQueryRetryInterval = 2 * time.Second
 
