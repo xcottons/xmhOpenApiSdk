@@ -16,7 +16,7 @@ import (
 	shipapi "github.com/cjay-shouhui/xmhOpenApiSdk/ship"
 )
 
-const claimPipelineDefaultBatchSize = 100
+const claimPipelineDefaultBatchSize = 1
 const claimQueryRetryCount = 6
 const claimQueryRetryInterval = 2 * time.Second
 
@@ -496,14 +496,14 @@ func TestPpOrder(t *testing.T) {
 					ItemName:        "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",
 					Currency:        "USD",
 					UnitPrice:       "48.00",
-					UnitNum:         "5",
+					UnitNum:         "2",
 					TotalPayPrice:   "4500.00",
 					InsuredPayPrice: "20.0",
 					SumInsured:      "1000.00",
 					PpVariant: &xmhsdk.PPVariant{
 						VariantID:   "",
 						Name:        "3 Years-back",
-						PriceString: "10.00",
+						PriceString: "20.00",
 						Currency:    "USD",
 						Properties: map[string]string{
 							"Reference": "16GA5QRB5TO01_110",
