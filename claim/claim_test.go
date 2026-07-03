@@ -424,3 +424,21 @@ func TestClaimQuery(t *testing.T) {
 	}
 	xmhsdk.Logger.Infof("ClaimQuery result: %s", xmhsdk.ToStr(result))
 }
+
+func TestClaimQueryByOrder(t *testing.T) {
+	xmhsdk.AppId = "1000170"
+	xmhsdk.AppSecret = "HsmqvWKfKajgFgPvZBRuwfmf9IcWQFkw"
+	xmhsdk.SignSecret = "vevor_beta"
+	xmhsdk.SetEnv(xmhsdk.EnvBeta)
+	auth.New()
+	params := &xmhsdk.ClaimQueryByOrderParam{
+		OrderID:            "1770265268",
+		ClaimInsuranceType: "4",
+	}
+	result, err := ClaimQueryByOrder(params)
+	if err != nil {
+		xmhsdk.Logger.Errorf("ClaimQueryByOrder error: %v", err)
+		return
+	}
+	xmhsdk.Logger.Infof("ClaimQueryByOrder result: %s", xmhsdk.ToStr(result))
+}

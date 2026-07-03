@@ -6,6 +6,7 @@ var claimItemsQueryUrl = "ClaimItemsQuery"
 var claimUrl = "ClaimReport"
 var serviceClaimItemsQueryUrl = "ServiceClaimItemQuery"
 var claimQueryUrl = "ClaimQuery"
+var claimQueryByOrderUrl = "ClaimQueryByOrder"
 
 func ClaimItemsQuery(params *xmhsdk.ClaimItemsQueryParam) (*xmhsdk.ClaimItems, error) {
 	result := &xmhsdk.ClaimItems{}
@@ -42,6 +43,17 @@ func ClaimQuery(params *xmhsdk.ClaimQueryParam) (*xmhsdk.ClaimItems, error) {
 	err := xmhsdk.MakeRequest(claimQueryUrl, params, result)
 	if err != nil {
 		xmhsdk.Logger.Errorf("ClaimItemsQuery error: %v", err)
+		return nil, err
+	}
+	return result, nil
+}
+
+// ClaimQueryByOrder 按订单号查询该订单下所有保单的理赔记录
+func ClaimQueryByOrder(params *xmhsdk.ClaimQueryByOrderParam) (*xmhsdk.ClaimQueryByOrderResult, error) {
+	result := &xmhsdk.ClaimQueryByOrderResult{}
+	err := xmhsdk.MakeRequest(claimQueryByOrderUrl, params, result)
+	if err != nil {
+		xmhsdk.Logger.Errorf("ClaimQueryByOrder error: %v", err)
 		return nil, err
 	}
 	return result, nil
