@@ -13,6 +13,7 @@ xmhOpenApiSdk
 - 订单    (order)：电商平台订单同步，以及投保，取消投保等
 - 发货    (ship)：发货数据同步
 - 理赔    (claim)：理赔报案
+- 保单    (serviceorder)：保单分页查询
 
 ## 安装
 

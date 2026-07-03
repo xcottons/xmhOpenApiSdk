@@ -69,7 +69,7 @@ type ClaimQueryParam struct {
 type ClaimQueryByOrderParam struct {
 	OrderID            string `json:"orderId"`            // 电商平台订单号，与 FrontOrderID 二选一
 	FrontOrderID       string `json:"frontOrderId"`       // 电商平台前端订单号，与 OrderID 二选一
-	ClaimInsuranceType string `json:"claimInsuranceType"` // 3-邮包险 4-理赔险
+	ClaimInsuranceType int32  `json:"claimInsuranceType"` // 3-邮包险 4-理赔险
 	Region             string `json:"region,omitempty"`   // ISO 3166-1 ALPHA2，默认 CN
 }
 
@@ -82,15 +82,27 @@ type ClaimQueryByOrderResult struct {
 
 // ClaimInfo 理赔单信息
 type ClaimInfo struct {
-	ClaimType              int32   `json:"claimType"`              // 索赔类型
-	ClaimTypeDesc          string  `json:"claimTypeDesc"`          // 索赔类型描述（中文）
-	ClaimState             int32   `json:"claimState"`             // 理赔状态
-	ClaimStateDesc         string  `json:"claimStateDesc"`         // 理赔状态描述（中文）
-	CompensationMethod     int32   `json:"compensationMethod"`     // 赔付方式
-	CompensationMethodDesc string  `json:"compensationMethodDesc"` // 赔付方式描述（中文）
-	ClaimApplyTime         string  `json:"claimApplyTime"`         // 理赔申请时间 RFC3339
-	ClaimFinishTime        string  `json:"claimFinishTime"`        // 理赔完成时间 RFC3339
-	ClaimMoney             float64 `json:"claimMoney"`             // 赔付金额（元）
-	ClaimMoneyCurrency     string  `json:"claimMoneyCurrency"`     // 赔付金额币种
-	Comments               string  `json:"comments"`               // 备注
+	ClaimType              int32                  `json:"claimType"`                       // 索赔类型
+	ClaimTypeDesc          string                 `json:"claimTypeDesc"`                   // 索赔类型描述（中文）
+	ClaimState             int32                  `json:"claimState"`                      // 理赔状态
+	ClaimStateDesc         string                 `json:"claimStateDesc"`                  // 理赔状态描述（中文）
+	CompensationMethod     int32                  `json:"compensationMethod"`              // 赔付方式
+	CompensationMethodDesc string                 `json:"compensationMethodDesc"`          // 赔付方式描述（中文）
+	ClaimApplyTime         string                 `json:"claimApplyTime"`                  // 理赔申请时间 RFC3339
+	ClaimFinishTime        string                 `json:"claimFinishTime"`                 // 理赔完成时间 RFC3339
+	ClaimMoney             string                 `json:"claimMoney"`                      // 赔付金额（元），字符串避免浮点精度
+	ClaimMoneyCurrency     string                 `json:"claimMoneyCurrency"`              // 赔付金额币种
+	Comments               string                 `json:"comments"`                        // 备注
+	CompensationExtension  *CompensationExtension `json:"compensationExtension,omitempty"` // 赔付扩展，按赔付方式补充（如 placeConsumerOrders.reissueOrderNo）
+}
+
+// CompensationExtension 赔付扩展信息（按赔付方式补充，不同 compensationMethod 仅填充对应子节点）。
+// 用于 ClaimQuery、ClaimQueryByOrder 出参及理赔事件回调请求体。
+type CompensationExtension struct {
+	PlaceConsumerOrders *PlaceConsumerOrdersDetail `json:"placeConsumerOrders,omitempty"` // 赔付方式=消费者代下单（7）时填充
+}
+
+// PlaceConsumerOrdersDetail 消费者代下单场景的补充信息
+type PlaceConsumerOrdersDetail struct {
+	ReissueOrderNo string `json:"reissueOrderNo"` // 补发下单交易单号
 }
