@@ -8,10 +8,10 @@ import (
 )
 
 func TestSpCalc(t *testing.T) {
-	xmhsdk.AppId = "1601704"
-	xmhsdk.AppSecret = "NAXnV842UJSjAWqhq53da9sw78JiranX"
-	xmhsdk.SignSecret = "ueeshop-idc"
-	xmhsdk.SetEnv(xmhsdk.EnvIdc)
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
@@ -34,10 +34,10 @@ func TestSpCalc(t *testing.T) {
 }
 
 func TestPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1601056"
-	xmhsdk.AppSecret = "tt8ZfdeUi5UrMqHVT17b9NUj9O4qAvcP"
-	xmhsdk.SignSecret = "crealityusa-idc"
-	xmhsdk.SetEnv(xmhsdk.EnvIdc)
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.CalcParams{
 		UserID:                   "VIPER3",
@@ -115,7 +115,7 @@ func TestShopifyPpCalc(t *testing.T) {
 				ItemId:            "7598670512227",
 				SkuId:             "SKU001",
 				ItemName:          "Durable Concrete Shirt",
-				Currency:          "JPY",
+				Currency:          "MXN",
 				UnitPrice:         "100.00",
 				UnitNum:           "2",
 				TotalPrice:        "200.00",
@@ -133,10 +133,10 @@ func TestShopifyPpCalc(t *testing.T) {
 }
 
 func TestOnlyPpCalc(t *testing.T) {
-	xmhsdk.AppId = "1601056"
-	xmhsdk.AppSecret = "tt8ZfdeUi5UrMqHVT17b9NUj9O4qAvcP"
-	xmhsdk.SignSecret = "crealityusa-idc"
-	xmhsdk.SetEnv(xmhsdk.EnvIdc)
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.PpCalcParams{
 		/*

@@ -16,7 +16,7 @@ import (
 	shipapi "github.com/cjay-shouhui/xmhOpenApiSdk/ship"
 )
 
-const claimPipelineDefaultBatchSize = 1
+const claimPipelineDefaultBatchSize = 10
 const claimQueryRetryCount = 6
 const claimQueryRetryInterval = 2 * time.Second
 
@@ -379,7 +379,7 @@ func TestSpOrder(t *testing.T) {
 			//SubOrderId:        "SubOrderId6",
 			TotalPayPrice:     "310.00",
 			TotalPrice:        "0.00",
-			Currency:          "USD",
+			Currency:          "MXN",
 			OrderState:        xmhsdk.OERDER_STATE_PAID,
 			InsuredPayPrice:   "10.00",
 			TaxPrice:          "0.00",

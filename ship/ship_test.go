@@ -283,10 +283,7 @@ func TestShipPpOrder(t *testing.T) {
 
 }
 func TestShip(t *testing.T) {
-	//xmhsdk.AppId = "1600205"
-	//xmhsdk.AppSecret = "kalGfuKmjSOWkLz3RblBeNaACXT1tZMc"
-	//xmhsdk.SignSecret = ""
-	//xmhsdk.SetEnv(xmhsdk.EnvIdc)
+
 	auth.New()
 	p1 := &xmhsdk.DItem{
 		ItemId:    "14031429304508",
@@ -751,10 +748,10 @@ func TestEuShipPpOrder(t *testing.T) {
 }
 
 func TestBatch(t *testing.T) {
-	xmhsdk.AppId = "1600398"
-	xmhsdk.AppSecret = "BTnKVWMdYgE37yyB3C2cU65WyyZXsEWR"
-	xmhsdk.SignSecret = "vevor-idc"
-	xmhsdk.SetEnv(xmhsdk.EnvIdc)
+	xmhsdk.AppId = "1000168"
+	xmhsdk.AppSecret = "tGPJZpnI9MGgIyyGxqXuazDRQXCtx2GW"
+	xmhsdk.SignSecret = "vevor-alpha"
+	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	type OpenApiOrderShip struct {
 		OrderSN               string `json:"order_sn"`
