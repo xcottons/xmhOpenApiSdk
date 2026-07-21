@@ -374,7 +374,9 @@ func TestClaimReport(t *testing.T) {
 	xmhsdk.SetEnv(xmhsdk.EnvAlpha)
 	auth.New()
 	params := &xmhsdk.OpenApiClaimReport{
-		ServiceOrderId: "20250508XPP11676136D0C65",
+		OrderGoodsId:   "123",
+		RefundId:       "456",
+		ServiceOrderId: "20260702XSP11676138A5B65",
 		ClaimItems: []*xmhsdk.OpenApiClaimItem{{
 			ItemId:        "16GA5QRB5TO01_110",
 			ItemName:      "PawHut 2-tier Wood Rabbit Hutch Backyard Bunny Cage Small Animal House w/ Ramp and Outdoor Run",

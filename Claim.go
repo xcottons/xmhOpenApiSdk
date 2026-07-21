@@ -12,6 +12,8 @@ type OpenApiClaimReport struct {
 	ClaimReportTime    string              `json:"claimReportTime"`
 	LossOccurrenceTime string              `json:"lossOccurrenceTime"`
 	Describe           string              `json:"describe"`
+	RefundId           string              `json:"refundId"`
+	OrderGoodsId       string              `json:"orderGoodsId"`
 }
 
 type AccountInfo struct {
