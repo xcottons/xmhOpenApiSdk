@@ -272,6 +272,7 @@ func buildClaimReportParam(serviceOrderID string, claimItem *xmhsdk.OpenApiClaim
 		ClaimReportTime:    now,
 		LossOccurrenceTime: now,
 		Describe:           "Auto generated batch claim",
+		CompensationReason: 5,
 	}
 }
 
